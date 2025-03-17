@@ -1,0 +1,222 @@
+\documentclass[printMode=false, declarePage=true]{ecnuthesis}
+
+% 
+%
+% ECNUThesis-Undergraduate: 华东师范大学本科生毕业论文模板
+% 2024-04-16 v0.2
+%
+% 本模板源代码托管在
+% https://github.com/Koyamin/ECNUThesis-Undergraduate
+% 最新的 Release 版本将发布在该仓库
+% 
+\ecnuSetup{
+  info = {
+    title = {面向移动平台的轻量化实时流体仿真研究},
+    % 中文标题
+    %
+    titleEN = {Lightweight Real-Time Fluid Simulation for Mobile Platforms},
+    % 英文标题
+    %
+    author = {郑怡秋},
+    % 作者姓名
+    %
+    studentID = {10215102429},
+    % 作者学号
+    %
+    department = {计算机科学与技术学院},
+    % 学院名称
+    %
+    major = {计算机科学与技术专业},
+    % 专业名称
+    %
+    supervisor = {李晨辉},
+    % 指导教师姓名
+    %
+    academicTitle = {副教授},
+    % 指导教师职称
+    %
+    year  = 2025,
+    % 论文完成年份
+    %
+    month = 5,
+    % 论文完成月份
+    %
+    graduationYear = 2025,
+    % 内封面毕业届别
+    % 说明:
+    %   若 graduationYear 字段为空，则内封面毕业届别为 year
+    %
+    keywords = {流体仿真, 流体模拟, 计算机图形学, 流体渲染, 光线追踪},
+    % 中文关键词
+    % 请使用英文逗号 "," 以分隔
+    %
+    keywordsEN = {Fluid Simulation, Computer Graphics, Fluid Rendering, Ray Tracing},
+    % 英文关键词
+    % 请使用英文逗号 "," 以分隔
+    %
+  },
+  style = {
+    numbering = arabic,
+    % 章节编号样式
+    % 可用选项:
+    %   numbering = arabic|alpha|chinese
+    % 说明:
+    %   arabic    使用数字进行编号 (即理科要求)
+    %   alpha     使用字母进行编号 (即外文要求)
+    %   chinese   使用汉字进行编号 (即文科要求)
+    %   (默认选项为 arabic )
+    %
+    font = xits,
+    % 西文字体选择
+    % 可用选项:
+    %   font = lm|times|xits
+    % 说明:
+    %   lm        使用 TeX 自带的 Latin Modern 字体
+    %   lm        使用 TeX 自带的 XITS 系列字体
+    %   times     使用 Times 风格的西文字体
+    %   (默认选项为 xits )
+    %
+    fontCJK = fandol,
+    % 中文字体选择
+    % 可用选项:
+    %   fontCJK = fandol|windows|mac
+    % 说明:
+    %   fandol    使用 TeX 自带的 fandol 字体
+    %   windows   使用 Windows 系统内的字体 (中易)
+    %   mac       使用 MacOS 系统内的字体
+    %   (默认选项为 fandol )
+    %
+    logoResource = {./ecnu-vi-inner-cover-logo.pdf},
+    % 封面插图数据源
+    % 模版已自带, 位于 ./source/inner-cover(contains_font).eps
+    % 默认值为空
+    %
+    % declarePageResource = {./source/declaration.pdf},
+    % 扫描版声明页 PDF 文件
+    % 若该值为空则生成模版预定义的声明页；否则将插入指定路径所对应的 PDF 文件
+    % 默认值为空
+    %
+    bibResource = {./bib/thesis-ref.bib},
+    % 参考文献数据源
+    % 由于使用的是 biber + biblatex , 所以必须明确给出 .bib 后缀名
+    %
+  }
+}
+
+\usepackage{enumitem}
+\usepackage{mwe}
+\usepackage{zhlipsum}
+% \usepackage[backend=biber]{biblatex}
+% \addbibresource{./bib/thesis-ref.bib}
+
+\begin{document}
+
+% \input{originality.tex}   %生成论文诚信承诺书
+
+% 目录
+\tableofcontents
+
+% 声明前置部分开始, 页码设置为大写罗马数字
+\frontmatter
+
+\begin{abstract}
+  本文通过一个实际的对日软件外包案件的设计和实现，经历了整个软件开发的过程，包括系统分析、概要设计、详细设计、编码、测试，为某制药企业开发了一个 B2B 的电子商务系统。本系统主要是以该制药企业为购买方，发布企业所需要的货物清单，以本系统为平台，各个供应商进行竞标，由购买方选择购买供应商的货物并下订单发货。由于购买方发布货物需要对大量数据进行操作，因此制作了数据批处理程序，来实现大量数据的导入和导出。系统的在线部分运用了XML和XSL技术，体现了画面实现模版化的优势，使得更有效方便的实现画面重载。该系统的开发过程中，本人主要负责制造在线部分的登陆、Home、估价请求履历检索、取消订单一览、用户信息作成、通知信息作成6个模块以及数据批处理部分的供应商 Master 导入程序。
+
+  使用该系统，制药企业可以在众多供应商中选择最价廉物美的原材料，这样大大降低其成本，提高了企业利润。同时，供应商之间也有了相互竞争，可以促进生产，达到“双赢”的效果。
+  本文最后说明了对日软件开发过程与当今我国软件开发过程的区别，并对我国今后软件事业做了期望和展望。
+\end{abstract}
+
+\begin{abstractEN}
+  This paper concerns with design and achievement of a software development project for Japanese company, experence the whole process of software development including system analysis, general design, detail design, coding, testing to develop a B2B E-business system for some Medicine Manufacture Enterprise. In this system, the Medicine Manufacture Enterprise as the buyers publish products list.The suppliers use this system as plat to bit products.Then the buyers select suppliers they need and send order to buy products.This system also has some batches to realize huge data importing and exporting.This system's webs use XML and XSL technologies to realize reloading of web templates. During the development of the system, my duty is to develop six webs and one batch.
+
+  Using this system, Medicine Manufacture Enterprise can select the best and the cheapest products in several suppliers to descreat cost. At the same time, suppliers will bit each other to inprove production and reach ‘Win-Win’.
+  
+  At the end of this paper, also explain the deference between Janpanese software development processing and Chinese, and give the deep expectance.
+\end{abstractEN}
+
+
+
+
+% 声明正文部分开始, 页码设置为阿拉伯数字
+\mainmatter
+\input{mainthesis}
+% \input{BeginTalk}
+% \input{RelateWork}
+
+
+
+% 声明后置部分开始
+\backmatter
+
+% 打印参考文献
+\PrintReference
+% \printbibliography
+
+% 附录
+\begin{appendix}
+  \begin{enumerate}
+    \item 文中提及公式\label{formula}
+    \begin{enumerate}
+        \item $W_{poly6}$基本函数
+            \begin{equation}
+                W_{poly6}(\mathbf{r},h) = \frac{315}{64\pi h^3} \begin{cases}
+             (1-\frac{r^2}{h^2})^3 & 0 \le r \le h\\
+             0 & \text{ otherwise } 
+            \end{cases}\label{con:poly6_1}
+            \end{equation}
+        \item $W_{poly6}$梯度函数（一次求导）
+            \begin{equation}
+                \nabla W_{poly6}(\mathbf{r},h) = \frac{-945r}{32\pi h^5} (1-\frac{r^2}{h^2})^2,0\le r \le h 
+                \label{con:poly6_2}
+            \end{equation}
+        \item $W_{poly6}$拉普拉斯函数（二次求导）
+            \begin{equation}
+                \nabla^2 W_{poly6}(\mathbf{r},h) = \frac{945}{32\pi h^5} (1-\frac{r^2}{h^2})(\frac{5r^2}{h^2}-1 ),0\le r \le h 
+                \label{con:poly6_3}
+            \end{equation}
+        \item $W_{spiky}$基本函数
+            \begin{equation}
+                W_{spiky}(\mathbf{r},h) = \frac{15}{\pi h^6} (h-r)^3,0\le r \le h 
+                \label{con:spiky_1}
+            \end{equation}
+        \item $W_{spiky}$梯度函数（一次求导）
+            \begin{equation}
+                \nabla W_{spiky}(\mathbf{r},h) = - \frac{45}{\pi h^4} (1-\frac{r}{h})^2,0\le r \le h 
+                \label{con:spiky_2}
+            \end{equation}
+        \item $W_{spiky}$拉普拉斯函数（二次求导）
+            \begin{equation}
+                \nabla^2 W_{spiky}(\mathbf{r},h) = \frac{90}{\pi h^5}(1-\frac{r}{h}),0\le r \le h 
+                \label{con:spiky_3}
+            \end{equation}
+        \item $W_{viscosity}$基本函数
+            \begin{equation}
+                W_{viscosity}(\mathbf{r},h) = \frac{15}{2\pi h^3} (-\frac{r^3}{2h^3}+\frac{r^2}{h^2}+\frac{h}{2r}-1),0\le r \le h 
+                \label{con:viskernel_1}
+            \end{equation}
+        \item $W_{viscosity}$梯度函数（一次求导）
+            \begin{equation}
+                \nabla W_{viscosity}(\mathbf{r},h) = \frac{15}{2\pi h^3} r(-\frac{3r}{2h^3}+\frac{2}{h^2}-\frac{h}{2r^3}),0\le r \le h 
+                \label{con:viskernel_2}
+            \end{equation}
+        \item $W_{viscosity}$拉普拉斯函数（二次求导）
+            \begin{equation}
+                \nabla^2 W_{viscosity}(\mathbf{r},h) = \frac{45}{r h^6} (h-r),0\le r \le h 
+                \label{con:viskernel_3}
+            \end{equation}
+
+    \end{enumerate}
+    \item 部分函数代码
+    \begin{enumerate}
+      \item LoadMessageFile函数（过程），用于读取信息XML文件，取得相应节点的内容，并通过引用参数返回值。
+      \item LoadMessageFile函数（过程），用于读取信息XML文件，取得相应节点的内容，并通过引用参数返回值。
+    \end{enumerate}
+  \end{enumerate}
+\end{appendix}
+
+% 致谢
+\begin{acknowledgement}
+  感谢天，感谢地，感谢阳光照耀了大地。
+\end{acknowledgement}
+
+\end{document}
