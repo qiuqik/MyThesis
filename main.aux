@@ -239,54 +239,97 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3-9}{\ignorespaces 双调归并排序算法示意图}}{17}{figure.caption.41}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3-9}{\ignorespaces Schematic diagram of binary merge sorting algorithm}}{17}{figure.caption.41}\protected@file@percent }
 \newlabel{fig:bitonic}{{3-9}{17}{双调归并排序算法示意图}{figure.caption.41}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Counting Sort}}{18}{algorithm.42}\protected@file@percent }
-\newlabel{alg:countingSort}{{1}{18}{Counting Sort}{algorithm.42}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}移动端的参数优化}{19}{section.61}\protected@file@percent }
-\pp@pagectr{footnote}{4}{25}{20}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4、}流体渲染方法}{20}{chapter.62}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}移动端的参数优化}{17}{section.61}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces 计数排序}}{18}{algorithm.42}\protected@file@percent }
+\newlabel{alg:countingSort}{{1}{18}{计数排序}{algorithm.42}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}参数设置}{18}{subsection.62}\protected@file@percent }
+\newlabel{con:nearPressure}{{3.10}{19}{参数设置}{equation.63}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3-1}{\ignorespaces \textbf  {模拟过程参数设置}}}{19}{table.caption.64}\protected@file@percent }
+\newlabel{tab:simArgs}{{3-1}{19}{\textbf {模拟过程参数设置}}{table.caption.64}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}性能对比}{19}{subsection.65}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3-2}{\ignorespaces \textbf  {不同粒子数目的性能}}}{19}{table.caption.66}\protected@file@percent }
+\newlabel{tab:particleCount}{{3-2}{19}{\textbf {不同粒子数目的性能}}{table.caption.66}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3-3}{\ignorespaces \textbf  {不同迭代次数的性能}}}{19}{table.caption.66}\protected@file@percent }
+\newlabel{tab:iterationCount}{{3-3}{19}{\textbf {不同迭代次数的性能}}{table.caption.66}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3-4}{\ignorespaces \textbf  {不同屏幕分辨率的性能}}}{19}{table.caption.66}\protected@file@percent }
+\newlabel{tab:resolution}{{3-4}{19}{\textbf {不同屏幕分辨率的性能}}{table.caption.66}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}模拟效果优化}{20}{subsection.67}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-10}{\ignorespaces 不同参数配置下的模拟效果}}{20}{figure.caption.68}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-10}{\ignorespaces Simulation effects under different parameter configurations}}{20}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:simResult}{{3-10}{20}{不同参数配置下的模拟效果}{figure.caption.68}{}}
+\pp@pagectr{footnote}{4}{27}{22}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4、}流体渲染方法}{22}{chapter.69}\protected@file@percent }
 \@writefile{lof}{\addvspace {10.0pt}}
 \@writefile{lot}{\addvspace {10.0pt}}
 \@writefile{toc}{\vspace {6pt}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}流体渲染的基本方法}{20}{section.63}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}渲染方法的性能分析}{20}{section.64}\protected@file@percent }
-\pp@pagectr{footnote}{5}{26}{21}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5、}面向移动端的流体仿真系统}{21}{chapter.65}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}流体渲染方法性能分析}{22}{section.70}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-1}{\ignorespaces Ray Marching方法和SSR方法效果对比}}{22}{figure.caption.71}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-1}{\ignorespaces Comparison of Ray Marching Method and SSR Method}}{22}{figure.caption.71}\protected@file@percent }
+\newlabel{fig:render1}{{4-1}{22}{Ray Marching方法和SSR方法效果对比}{figure.caption.71}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}屏幕空间渲染方法实现}{23}{section.72}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-2}{\ignorespaces SSR方法流程图}}{23}{figure.caption.73}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-2}{\ignorespaces Pipeline of the Screen Space Render method}}{23}{figure.caption.73}\protected@file@percent }
+\newlabel{fig:renderPipeline}{{4-2}{23}{SSR方法流程图}{figure.caption.73}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}屏幕空间纹理计算}{23}{subsection.74}\protected@file@percent }
+\newlabel{con:grad}{{4.1}{24}{屏幕空间纹理计算}{equation.75}{}}
+\newlabel{con:trans}{{4.2}{24}{屏幕空间纹理计算}{equation.76}{}}
+\newlabel{con:normalVector}{{4.3}{24}{屏幕空间纹理计算}{equation.77}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4-3}{\ignorespaces 深度、法线和厚度图}}{24}{figure.caption.78}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-3}{\ignorespaces Depth, thickness and normal images}}{24}{figure.caption.78}\protected@file@percent }
+\newlabel{fig:compare2}{{4-3}{24}{深度、法线和厚度图}{figure.caption.78}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}屏幕空间纹理优化}{24}{subsection.79}\protected@file@percent }
+\newlabel{con:bilateral}{{4.4}{24}{屏幕空间纹理优化}{equation.80}{}}
+\newlabel{con:gaosi}{{4.5}{25}{屏幕空间纹理优化}{equation.81}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4-4}{\ignorespaces 双边滤波平滑后的法线图和渲染图}}{25}{figure.caption.82}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-4}{\ignorespaces Normal graph and rendering graph smoothed by bilateral filtering}}{25}{figure.caption.82}\protected@file@percent }
+\newlabel{fig:compare}{{4-4}{25}{双边滤波平滑后的法线图和渲染图}{figure.caption.82}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}反射和折射}{25}{subsection.83}\protected@file@percent }
+\newlabel{con:snell}{{4.6}{26}{反射和折射}{equation.84}{}}
+\newlabel{con:fresnel}{{4.7}{26}{反射和折射}{equation.85}{}}
+\newlabel{con:blendingColor}{{4.8}{26}{反射和折射}{equation.86}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}阴影计算}{27}{subsection.87}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-5}{\ignorespaces 不同高斯模糊半径下阴影对比}}{27}{figure.caption.88}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-5}{\ignorespaces Shadow contrast under different Gaussian blur radius}}{27}{figure.caption.88}\protected@file@percent }
+\newlabel{fig:compare3}{{4-5}{27}{不同高斯模糊半径下阴影对比}{figure.caption.88}{}}
+\pp@pagectr{footnote}{5}{33}{28}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5、}面向移动端的流体仿真系统}{28}{chapter.89}\protected@file@percent }
 \@writefile{lof}{\addvspace {10.0pt}}
 \@writefile{lot}{\addvspace {10.0pt}}
 \@writefile{toc}{\vspace {6pt}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}移动端流体仿真系统架构}{21}{section.66}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}流体仿真系统交互界面}{21}{section.67}\protected@file@percent }
-\pp@pagectr{footnote}{6}{27}{22}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6、}实验与结果}{22}{chapter.68}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}移动端流体仿真系统架构}{28}{section.90}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}流体仿真系统交互界面}{28}{section.91}\protected@file@percent }
+\pp@pagectr{footnote}{6}{34}{29}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6、}实验与结果}{29}{chapter.92}\protected@file@percent }
+\@writefile{lof}{\addvspace {10.0pt}}
+\@writefile{lot}{\addvspace {10.0pt}}
+\newlabel{experiment}{{6}{29}{实验与结果}{chapter.92}{}}
+\@writefile{toc}{\vspace {6pt}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}渲染效果评估}{29}{section.93}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}仿真性能评估}{29}{section.94}\protected@file@percent }
+\pp@pagectr{footnote}{7}{35}{30}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7、}结论}{30}{chapter.95}\protected@file@percent }
 \@writefile{lof}{\addvspace {10.0pt}}
 \@writefile{lot}{\addvspace {10.0pt}}
 \@writefile{toc}{\vspace {6pt}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}渲染效果评估}{22}{section.69}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}仿真性能评估}{22}{section.70}\protected@file@percent }
-\pp@pagectr{footnote}{7}{28}{23}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7、}结论}{23}{chapter.71}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}研究总结}{30}{section.96}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}贡献与展望}{30}{section.97}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{参考文献}{31}{chapter*.98}\protected@file@percent }
 \@writefile{lof}{\addvspace {10.0pt}}
 \@writefile{lot}{\addvspace {10.0pt}}
-\@writefile{toc}{\vspace {6pt}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}研究总结}{23}{section.72}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}贡献与展望}{23}{section.73}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{参考文献}{24}{chapter*.74}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{附录}{35}{appendix*.99}\protected@file@percent }
 \@writefile{lof}{\addvspace {10.0pt}}
 \@writefile{lot}{\addvspace {10.0pt}}
-\@writefile{toc}{\contentsline {chapter}{附录}{28}{appendix*.75}\protected@file@percent }
-\@writefile{lof}{\addvspace {10.0pt}}
-\@writefile{lot}{\addvspace {10.0pt}}
-\newlabel{formula}{{1}{28}{贡献与展望}{Item.76}{}}
-\newlabel{con:poly6_1}{{1}{28}{贡献与展望}{equation.78}{}}
-\newlabel{con:poly6_2}{{2}{28}{贡献与展望}{equation.80}{}}
-\newlabel{con:poly6_3}{{3}{28}{贡献与展望}{equation.82}{}}
-\newlabel{con:spiky_1}{{4}{28}{贡献与展望}{equation.84}{}}
-\newlabel{con:spiky_2}{{5}{28}{贡献与展望}{equation.86}{}}
-\newlabel{con:spiky_3}{{6}{28}{贡献与展望}{equation.88}{}}
-\newlabel{con:viskernel_1}{{7}{28}{贡献与展望}{equation.90}{}}
-\newlabel{con:viskernel_2}{{8}{28}{贡献与展望}{equation.92}{}}
-\newlabel{con:viskernel_3}{{9}{28}{贡献与展望}{equation.94}{}}
-\@writefile{toc}{\contentsline {chapter}{致谢}{29}{appendix*.98}\protected@file@percent }
+\newlabel{formula}{{1}{35}{贡献与展望}{Item.100}{}}
+\newlabel{con:poly6_1}{{1}{35}{贡献与展望}{equation.102}{}}
+\newlabel{con:poly6_2}{{2}{35}{贡献与展望}{equation.104}{}}
+\newlabel{con:poly6_3}{{3}{35}{贡献与展望}{equation.106}{}}
+\newlabel{con:spiky_1}{{4}{35}{贡献与展望}{equation.108}{}}
+\newlabel{con:spiky_2}{{5}{35}{贡献与展望}{equation.110}{}}
+\newlabel{con:spiky_3}{{6}{35}{贡献与展望}{equation.112}{}}
+\newlabel{con:viskernel_1}{{7}{35}{贡献与展望}{equation.114}{}}
+\newlabel{con:viskernel_2}{{8}{35}{贡献与展望}{equation.116}{}}
+\newlabel{con:viskernel_3}{{9}{35}{贡献与展望}{equation.118}{}}
+\@writefile{toc}{\contentsline {chapter}{致谢}{37}{appendix*.122}\protected@file@percent }
 \@writefile{lof}{\addvspace {10.0pt}}
 \@writefile{lot}{\addvspace {10.0pt}}
 \abx@aux@read@bbl@mdfivesum{F7E864CB06A96768F202C89262ED5A8B}
@@ -351,4 +394,4 @@
 \abx@aux@defaultrefcontext{0}{biedert2018direct}{none/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{clavet2005particle}{none/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{schechter2012ghost}{none/global//global/global/global}
-\gdef \@abspage@last{34}
+\gdef \@abspage@last{42}

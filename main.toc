@@ -19,23 +19,30 @@
 \contentsline {subsection}{\numberline {3.2.1}存储空间邻域搜索优化}{14}{subsection.36}%
 \contentsline {subsubsection}{\numberline {3.2.1.1}邻域搜索数据结构优化}{14}{subsubsection.37}%
 \contentsline {subsubsection}{\numberline {3.2.1.2}并行排序算法优化}{16}{subsubsection.40}%
-\contentsline {section}{\numberline {3.3}移动端的参数优化}{19}{section.61}%
-\contentsline {chapter}{\numberline {4、}流体渲染方法}{20}{chapter.62}%
+\contentsline {section}{\numberline {3.3}移动端的参数优化}{17}{section.61}%
+\contentsline {subsection}{\numberline {3.3.1}参数设置}{18}{subsection.62}%
+\contentsline {subsection}{\numberline {3.3.2}性能对比}{19}{subsection.65}%
+\contentsline {subsection}{\numberline {3.3.3}模拟效果优化}{20}{subsection.67}%
+\contentsline {chapter}{\numberline {4、}流体渲染方法}{22}{chapter.69}%
 \vspace {6pt}
-\contentsline {section}{\numberline {4.1}流体渲染的基本方法}{20}{section.63}%
-\contentsline {section}{\numberline {4.2}渲染方法的性能分析}{20}{section.64}%
-\contentsline {chapter}{\numberline {5、}面向移动端的流体仿真系统}{21}{chapter.65}%
+\contentsline {section}{\numberline {4.1}流体渲染方法性能分析}{22}{section.70}%
+\contentsline {section}{\numberline {4.2}屏幕空间渲染方法实现}{23}{section.72}%
+\contentsline {subsection}{\numberline {4.2.1}屏幕空间纹理计算}{23}{subsection.74}%
+\contentsline {subsection}{\numberline {4.2.2}屏幕空间纹理优化}{24}{subsection.79}%
+\contentsline {subsection}{\numberline {4.2.3}反射和折射}{25}{subsection.83}%
+\contentsline {subsection}{\numberline {4.2.4}阴影计算}{27}{subsection.87}%
+\contentsline {chapter}{\numberline {5、}面向移动端的流体仿真系统}{28}{chapter.89}%
 \vspace {6pt}
-\contentsline {section}{\numberline {5.1}移动端流体仿真系统架构}{21}{section.66}%
-\contentsline {section}{\numberline {5.2}流体仿真系统交互界面}{21}{section.67}%
-\contentsline {chapter}{\numberline {6、}实验与结果}{22}{chapter.68}%
+\contentsline {section}{\numberline {5.1}移动端流体仿真系统架构}{28}{section.90}%
+\contentsline {section}{\numberline {5.2}流体仿真系统交互界面}{28}{section.91}%
+\contentsline {chapter}{\numberline {6、}实验与结果}{29}{chapter.92}%
 \vspace {6pt}
-\contentsline {section}{\numberline {6.1}渲染效果评估}{22}{section.69}%
-\contentsline {section}{\numberline {6.2}仿真性能评估}{22}{section.70}%
-\contentsline {chapter}{\numberline {7、}结论}{23}{chapter.71}%
+\contentsline {section}{\numberline {6.1}渲染效果评估}{29}{section.93}%
+\contentsline {section}{\numberline {6.2}仿真性能评估}{29}{section.94}%
+\contentsline {chapter}{\numberline {7、}结论}{30}{chapter.95}%
 \vspace {6pt}
-\contentsline {section}{\numberline {7.1}研究总结}{23}{section.72}%
-\contentsline {section}{\numberline {7.2}贡献与展望}{23}{section.73}%
-\contentsline {chapter}{参考文献}{24}{chapter*.74}%
-\contentsline {chapter}{附录}{28}{appendix*.75}%
-\contentsline {chapter}{致谢}{29}{appendix*.98}%
+\contentsline {section}{\numberline {7.1}研究总结}{30}{section.96}%
+\contentsline {section}{\numberline {7.2}贡献与展望}{30}{section.97}%
+\contentsline {chapter}{参考文献}{31}{chapter*.98}%
+\contentsline {chapter}{附录}{35}{appendix*.99}%
+\contentsline {chapter}{致谢}{37}{appendix*.122}%

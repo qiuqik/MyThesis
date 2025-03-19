@@ -295,51 +295,350 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 计数排序较双调排序更快，虽然需要更多空间，但在本文系统中，需要排序的数据范围不会超过粒子数目，因此在这种情况下，计数排序和双调排序消耗空间没有数量级上的差距。
 
 基于上述分析，在本文系统中，我们采用计数排序（Counting Sort）算法。本文系统具体实现算法\ref{alg:countingSort}如下，首先进行初始化操作，创建一个长度为 maxValue + 1 的计数数组 Counts，并将所有元素设为 0，同时创建长度为 n 的排序后的数组 SortedItems 和 SortedKeys。接着计算每个键在原始数组 A 中的出现次数，并更新 Counts 数组。然后对 Counts 数组进行处理，计算每个键的前缀和。之后进行分散输出操作，从后向前遍历原始数组 A，根据 Counts 数组中的索引将元素放置在排序后的数组 SortedItems 和 SortedKeys 中，并同时更新 Counts 数组。最后将排序后的数组 SortedItems 和 SortedKeys 复制回输入数组 A 和 K，完成排序过程。
-
 \begin{algorithm}
-\caption{Counting Sort} \label{alg:countingSort}
-\begin{algorithmic}[1]
-\REQUIRE Array of items $A[1 \ldots n]$, Array of keys $K[1 \ldots n]$, Maximum key value $maxValue$
-\ENSURE Sorted array $A$ and $K$
-
-\STATE Initialize array $Counts[0 \ldots maxValue]$ to 0
-\STATE Initialize array $SortedItems[1 \ldots n]$
-\STATE Initialize array $SortedKeys[1 \ldots n]$
-
-\FOR{each item $i$ in $A$}
-    \STATE $Counts[K[i]] \leftarrow Counts[K[i]] + 1$
-\ENDFOR
-
-\FOR{each key $j$ from 1 to $maxValue$}
-    \STATE $Counts[j] \leftarrow Counts[j] + Counts[j-1]$
-\ENDFOR
-
-\FOR{each item $i$ from $n$ down to 1}
-    \STATE $SortedItems[Counts[K[i]]] \leftarrow A[i]$
-    \STATE $SortedKeys[Counts[K[i]]] \leftarrow K[i]$
-    \STATE $Counts[K[i]] \leftarrow Counts[K[i]] - 1$
-\ENDFOR
-
-\FOR{each item $i$ from 1 to $n$}
-    \STATE $A[i] \leftarrow SortedItems[i]$
-    \STATE $K[i] \leftarrow SortedKeys[i]$
-\ENDFOR
-
-\end{algorithmic}
+    \caption{计数排序} \label{alg:countingSort}
+    \begin{algorithmic}[1]
+    \setstretch{1.0} % 调整行间距
+    \REQUIRE 元素数组 $A[1 \ldots n]$，键数组 $K[1 \ldots n]$，最大键值 $maxValue$
+    \ENSURE 排序后的数组 $A$ 和 $K$
+    
+    \STATE 初始化数组 $Counts[0 \ldots maxValue]$ 为 0
+    \STATE 初始化数组 $SortedItems[1 \ldots n]$
+    \STATE 初始化数组 $SortedKeys[1 \ldots n]$
+    
+    \FOR{ $A$ 中的每个元素 $i$ }
+        \STATE $Counts[K[i]] \leftarrow Counts[K[i]] + 1$
+    \ENDFOR
+    
+    \FOR{ 从 1 到 $maxValue$ 的每个键 $j$ }
+        \STATE $Counts[j] \leftarrow Counts[j] + Counts[j-1]$
+    \ENDFOR
+    
+    \FOR{ 从 $n$ 到 1 的每个元素 $i$ }
+        \STATE $SortedItems[Counts[K[i]]] \leftarrow A[i]$
+        \STATE $SortedKeys[Counts[K[i]]] \leftarrow K[i]$
+        \STATE $Counts[K[i]] \leftarrow Counts[K[i]] - 1$
+    \ENDFOR
+    
+    \FOR{ 从 1 到 $n$ 的每个元素 $i$ }
+        \STATE $A[i] \leftarrow SortedItems[i]$
+        \STATE $K[i] \leftarrow SortedKeys[i]$
+    \ENDFOR
+    
+    \end{algorithmic}
 \end{algorithm}
+% \begin{algorithm}
+% \caption{Counting Sort} \label{alg:countingSort}
+% \begin{algorithmic}[1]
+% \REQUIRE Array of items $A[1 \ldots n]$, Array of keys $K[1 \ldots n]$, Maximum key value $maxValue$
+% \ENSURE Sorted array $A$ and $K$
+
+% \STATE Initialize array $Counts[0 \ldots maxValue]$ to 0
+% \STATE Initialize array $SortedItems[1 \ldots n]$
+% \STATE Initialize array $SortedKeys[1 \ldots n]$
+
+% \FOR{each item $i$ in $A$}
+%     \STATE $Counts[K[i]] \leftarrow Counts[K[i]] + 1$
+% \ENDFOR
+
+% \FOR{each key $j$ from 1 to $maxValue$}
+%     \STATE $Counts[j] \leftarrow Counts[j] + Counts[j-1]$
+% \ENDFOR
+
+% \FOR{each item $i$ from $n$ down to 1}
+%     \STATE $SortedItems[Counts[K[i]]] \leftarrow A[i]$
+%     \STATE $SortedKeys[Counts[K[i]]] \leftarrow K[i]$
+%     \STATE $Counts[K[i]] \leftarrow Counts[K[i]] - 1$
+% \ENDFOR
+
+% \FOR{each item $i$ from 1 to $n$}
+%     \STATE $A[i] \leftarrow SortedItems[i]$
+%     \STATE $K[i] \leftarrow SortedKeys[i]$
+% \ENDFOR
+
+% \end{algorithmic}
+% \end{algorithm}
 
 
 
 
 \section{移动端的参数优化}
 
+在流体模拟中，参数对模拟效果与性能影响显著。本文系统涉及粒子数目、邻域半径、迭代次数、粘度系数、压力乘数（刚度系数）及分辨率等关键参数。粒子数目与邻域半径是影响模拟性能和效果的重要因素。粒子数目增加，可细化流体流动特征，提升模拟真实度，但会显著增大计算量，降低系统性能。邻域半径增大，粒子间相互作用信息更全面，模拟效果会更逼近真实流体运动。迭代次数同样关键，增加迭代次数会使模拟结果逐渐收敛，从而提升真实度，但计算量也会增加。粘度系数和刚度系数决定流体特性，粘度系数增大，流体粘稠度增加，内摩擦力增大、流速减缓；刚度系数增大，流体受外力时变形减小，更具刚性。
+为优化系统，本文通过对比不同参数组合下的模拟效果与性能，筛选最优参数。本节先展示不同参数下流体仿真性能对比，再基于模拟效果的真实感调整优化参数。本节实验在PC端基于Windows 10操作系统，Intel Core i5-1135G7处理器，NVIDIA GeForce MX450显卡，CUDA 12.0，Unity 2022.3.48f1。基于移动端的性能分析见章节\ref{experiment}。
+% 在移动端基于Android 14操作系统，Qualcomm Snapdragon 8 Gen 2处理器，Adreno 740显卡，OpenGL ES 3.2。
 
+\subsection{参数设置}
+
+在光滑粒子流体动力学（SPH）方法体系中，光滑核函数占据着极为关键的地位。其功能涵盖了诸多核心方面：不仅对函数近似的构建方式以及微粒支撑区域的尺度界定起到决定性作用，同时紧密关联着核估计与粒子估计在统一性及准确性层面的表现。并且，它还明确了粒子之间的作用范畴以及属性传递的具体模式。本系统在求解密度、近密度、压力、近压力、粘度等物理量时，分别采用了不同的核函数。其中，密度核函数为$W_{poly6}$核函数的基本形式，近密度核函数要求更加尖锐，因此采用了$W_{spiky}$核函数。压力核函数一般为$W_{spiky}$核函数的一阶导数形式，但近压力核函数要求比压力核函数更尖锐以满足表面张力效果，因此我们将近压力核函数设为$W_{spiky}$核函数的一阶导数形式，压力核函数为该一阶导数的低一阶形式，如公式\eqref{con:nearPressure}所示。粘度核函数使用$W_{viscosity}$核函数的二阶导数形式。
+
+\begin{equation}
+    W_{near\_pressure}(r,h) = -\frac{15}{\pi h^5} (r-h)
+    \label{con:nearPressure}
+\end{equation}
+
+
+
+本系统涉及的一系列参数的默认设置如表\ref{tab:simArgs}，其中，粒子的邻域半径对核函数的计算结果有直接影响。本系统的默认参数设置经多次试验和综合考虑，保证了模拟效果和性能的平衡，能够在200k粒子数目下实现每秒60帧的实时模拟。接下来将基于控制变量法，对各参数的不同数值对比模拟效果与性能。
+
+%经典三线表
+\begin{table}[H]
+    \caption{\textbf{模拟过程参数设置}}%标题
+    \label{tab:simArgs}%标签，用作引用
+    \centering%把表居中
+    \begin{tabular}{cccc}%四个c代表该表一共四列，内容全部居中
+    \toprule%第一道横线
+    模拟参数&数值&模拟参数&数值 \\
+    \midrule%第二道横线 
+    重力&9.8&迭代次数&3 \\
+    邻域半径&0.2&压力乘数&288 \\
+    粒子数量&200k&近压力乘数&2.16 \\
+    粘度系数&0.01&分辨率&1920*1080 \\
+    \bottomrule%第三道横线
+\end{tabular}
+\end{table}
+
+\subsection{性能对比}
+
+在性能对比方面，针对不同粒子数目、迭代次数和屏幕分辨率下的性能对比见下表，上表提到的其余参数均保持默认配置。
+\begin{table}[H]
+    \centering
+    % 前两个表格横向排列
+    \begin{minipage}{0.5\textwidth}
+        \caption{\textbf{不同粒子数目的性能}}
+        \label{tab:particleCount}
+        \centering
+        \begin{tabular}{ccc}
+            \toprule
+            粒子数目 & 帧率/fps & 内存/GB \\
+            \midrule
+            200k & 57.70 & 0.85 \\
+            250k & 43.58 & 0.89 \\
+            300k & 38.30 & 0.90 \\
+            350k & 31.72 & 0.90 \\
+            400k & 27.53 & 0.91 \\
+            450k & 22.43 & 0.92 \\
+            \bottomrule
+        \end{tabular}
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \caption{\textbf{不同迭代次数的性能}}
+        \label{tab:iterationCount}
+        \centering
+        \begin{tabular}{ccc}
+            \toprule
+            迭代次数 & 帧率/fps & 内存/GB \\
+            \midrule
+            3 & 55.93 & 0.85 \\
+            4 & 43.48 & 0.88 \\
+            5 & 35.38 & 0.84 \\
+            6 & 30.37 & 0.89 \\
+            7 & 26.19 & 0.84 \\
+            8 & 23.20 & 0.88 \\
+            \bottomrule
+        \end{tabular}
+    \end{minipage}
+    % 第三个表格放在第二行
+    \begin{minipage}{\textwidth}
+        \caption{\textbf{不同屏幕分辨率的性能}}
+        \label{tab:resolution}
+        \centering
+        \begin{tabular}{ccc}
+            \toprule
+            屏幕分辨率 & 帧率/fps & 内存/GB \\
+            \midrule
+            1920*1080(1080p) & 56.08 & 0.85 \\
+            2560*1440(2K) & 53.66 & 0.88 \\
+            3840*2160(4K) & 48.16 & 1.01 \\
+            7680*4320(8K) & 32.40 & 2.58 \\
+            \bottomrule
+        \end{tabular}
+    \end{minipage}
+\end{table}
+
+
+如表所示，粒子数目在200k时能够基本实时运行，当粒子数目增加一倍即400k时，帧率下降$52.28\%$，内存增加$6.60\%$，性能下降较为明显。随着迭代次数的增加，帧率也具有相同下降幅度，但内存占用波动不大，因为迭代次数增加影响的是一帧内迭代更新粒子位置的次数。迭代次数越高粒子运动越稳定，当迭代次数低于3时粒子运动会出现明显混乱。屏幕分辨率增加的是渲染到屏幕的像素数量，因此帧率会随分辨率的增加而下降，内存占用也会增加。
+% %经典三线表
+% \begin{table}[H]
+%     \caption{\textbf{不同粒子数目的性能}}%标题
+%     \label{tab:particleCountSim}%标签，用作引用
+%     \centering%把表居中
+%     \begin{tabular}{ccccccccc}%四个c代表该表一共四列，内容全部居中
+%     \toprule%第一道横线
+%     粒子数目&帧率/fps&内存/GB&迭代次数&帧率/fps&内存/GB&屏幕分辨率&帧率/fps&内存/GB \\
+%     \midrule%第二道横线 
+%     200k&57.70&0.85&3&55.93&0.85&1920*1080(1080p)&56.08&0.85 \\
+%     \midrule
+%     250k&43.58&0.89&4&43.48&0.88&2560*1440(2K)&53.66&0.88 \\
+%     \midrule
+%     300k&38.30&0.90&5&35.38&084&3840*2160(4K)&48.16&1.01 \\
+%     \midrule
+%     350k&31.72&0.90&6&30.37&0.89&7680*4320(8K)&32.40&2.58 \\
+%     \midrule
+%     400k&27.53&0.91&7&26.19&0.84&-&-&- \\
+%     \midrule
+%     450k&22.43&0.92&8&23.20&0.88&-&-&- \\
+%     \midrule
+%     \bottomrule%第三道横线
+% \end{tabular}
+% \end{table}
+
+\subsection{模拟效果优化}
+
+在基于光滑粒子流体动力学（SPH）方法的模拟研究范畴内，不同的迭代次数、粘度系数以及压力乘数等关键参数，会对流体稳定性产生极为重要的影响。迭代次数直接关联着模拟过程中数值计算的收敛程度，随着迭代次数的增加，模拟结果会逐步逼近真实物理状态，但过高的迭代次数可能引发计算资源的过度消耗以及计算时间的大幅增长。粘度系数作为描述流体粘性特性的关键参量，对流体内部的动量传递和能量耗散起着决定性作用。当粘度系数取值较小时，流体呈现出较为稀薄的状态，内部摩擦力较小，粒子间的相互作用相对较弱，可能导致流体在模拟过程中出现不稳定的流动形态；而当粘度系数取值过大时，流体会变得过于粘稠，流动过程变得迟缓，甚至可能出现类似胶体的行为，这同样偏离了预期的真实流体特性。压力乘数则在调节流体内部压力分布方面扮演着核心角色，它通过改变压力场的强度，进而影响流体粒子的受力情况和运动轨迹。压力乘数的不当选取，可能致使流体内部压力失衡，引发粒子的异常聚集或离散，严重破坏流体的稳定性，使得模拟结果无法准确反映实际流体的动力学行为。
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=14cm]{image/simResult.png}
+    \bicaption{不同参数配置下的模拟效果}{Simulation effects under different parameter configurations}
+    \label{fig:simResult}
+\end{figure}
+
+为了进一步说明不同参数对模拟效果的影响，我们挑选了不同迭代次数和粘度系数的模拟结果进行如图\ref{fig:simResult}所示的对比。我们分别对第90帧和第180帧的模拟图像进行采集。从图中可以看出，迭代次数为2时无法维持流体的稳定，每个粒子的位移完全偏离真实流体位移结果。而迭代次数为3时已经能够稳定模拟流体的行为，此时再增加迭代次数，对流体位移的真实性的提升十分轻微，但增加了计算耗时，因此我们选取迭代次数为3作为默认配置参数。在调整粘度参数时，我们展示了不设置粘度力和设置粘度系数为0.01的粘度力在模拟效果上的区别。从图中可以看到，在迭代次数为2的第90帧的两张图像，无粘度力的流体粒子完全混乱，而设置了粘度系数为0.01的粘度力的流体能较大程度上维持形态，这说明粘度力能够增强系统的稳定性并增强模拟真实感。
+
+
+总而言之，通过以上优化，我们能够在实现一定程度真实感的流体模拟的同时保持模拟达到实时效率。
 
 
 \chapter{流体渲染方法}
 
-\section{流体渲染的基本方法}
-\section{渲染方法的性能分析}
+\section{流体渲染方法性能分析}
+
+上一章节的流体模拟模块得到的是存储每帧流体粒子的位置数据的缓冲区，为了得到光滑流体表面以及流体表面的折射、反射和阴影效果，需要对流体粒子进行表面重建和渲染。对流体表面进行渲染的方法主要有三种。Marching Cubes方法时间复杂度高且计算量大，本文不予考虑。Ray Marching方法属于光线追踪的轻量化优化方法，可以实现非常真实的光照效果，但计算量较大。与前两种方法在三维空间进行计算不同，SSR方法在屏幕空间中进行渲染。它利用屏幕上的像素信息进行渲染，效率最高，但无法精确处理光线在水体中的传播，渲染效果不如Ray Marching方法真实。
+
+我们对Ray Marching方法和SSR方法的实现效率和效果进行对比如图\ref{fig:render1}。可以明显看出Ray Marching方法对于光线的折射和反射处理地更加精细和真实，而SSR方法效果则较为模糊。但在渲染效率上，SSR方法比Ray Marching方法高近$80\%$，因此有必要牺牲部分渲染效果以达到实时渲染目的。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{image/render1.png}
+    \bicaption{Ray Marching方法和SSR方法效果对比}{Comparison of Ray Marching Method and SSR Method}
+    \label{fig:render1}
+\end{figure}
+
+\section{屏幕空间渲染方法实现}
+
+本系统采用屏幕空间渲染方法对流体进行渲染。该方法主要流程如图\ref{fig:renderPipeline}。基于屏幕空间的方法直接在屏幕空间对流体进行渲染，将操作维度从三维降到二维。算法主要分两大步骤，第一大步骤为将流体粒子按照当前的投影矩阵和视图矩阵渲染到屏幕空间，获取流体粒子的深度纹理和不同视角下的流体厚度纹理，在对这些纹理信息进行模糊平滑后计算流体粒子的法线纹理。第二大步骤根据平滑后的纹理做流体的光照计算，包括反射、折射和自阴影。接下来本节将详细阐述每个子步骤用到的算法和产生的效果。
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[height=10cm]{image/renderPipeline.png}
+    \bicaption{SSR方法流程图}{Pipeline of the Screen Space Render method}
+    \label{fig:renderPipeline}
+\end{figure}
+
+
+\subsection{屏幕空间纹理计算}
+首先获取流体粒子的深度信息。本系统的粒子采用点精灵（Point Sprite）的方式绘制，点精灵是一个始终面向相机的薄片，我们通过适当的裁剪和投影使其符合透视原理。之后计算点精灵中心与相机之间的距离并存储到深度纹理缓存。厚度信息的计算与深度信息不同，它衡量的是在给定方向上有多少流体粒子，粒子越多，厚度值越高。计算厚度值需要开启additive blending选项，即透明加法融合，将每个粒子的厚度值进行累积并以颜色缓冲输出，得到厚度信息。该方法共需要两个方向的厚度信息，相机方向的厚度纹理用于折射计算，光源方向的厚度纹理用于阴影计算。
+
+法线向量从深度缓存中重建。本系统利用有限差分法计算粒子在x方向和y方向的深度数据的偏导数，通过两方向的偏导数做叉乘得到法线向量。其中的x方向和y方向为屏幕空间大小的纹理坐标方向。具体计算公式如下\ref{con:grad}：
+
+\begin{equation}
+    \frac{\delta f}{\delta s} \approx \frac{f(s+\Delta s) - f(s)}{\Delta s}
+    \label{con:grad}
+\end{equation}
+
+为了计算该梯度，我们需要先将深度纹理中的纹理坐标转换为相机空间坐标。设顶点的纹理坐标为$(n_x,n_y,n_z)$，它在相机空间的对应坐标为$(v_x,v_y,v_z)$。则从纹理坐标映射到相机空间坐标需要公式\ref{con:trans}：
+\begin{equation}
+    \begin{aligned}
+    \text{tempVector} = (\text{projectM})^{-1}\cdot (n_x,n_y,n_z,1.0) \\
+    (v_x,v_y,v_z,1.0) = \frac{1.0}{\text{tempVector}.w} \cdot \text{tempVector}
+    \end{aligned}
+    \label{con:trans}
+\end{equation}
+通过上述步骤得到当前像素及其周围四个相邻像素在视图空间的位置向量，分别做x方向和y方向的差分并进行叉乘得到法线向量，其中$\Delta s = 1$。具体公式如式\ref{con:normalVector}。经上述步骤得到的深度、厚度和法线图如图\ref{fig:compare2}所示。
+
+\begin{equation}
+    \vec{N}=\frac{\vec{n_{\text{left}}} \times \vec{n_{\text{up}}}}{\left\|\vec{n_{\text{left}}} \times \vec{n_{\text{up}}}\right\|}
+    \label{con:normalVector}
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{image/compare2.png}
+    \bicaption{深度、法线和厚度图}{Depth, thickness and normal images}
+    \label{fig:compare2}
+\end{figure}
+
+
+\subsection{屏幕空间纹理优化}
+使用未模糊的深度图会使最终渲染效果颗粒感明显。本系统选择使用高斯双边滤波算法（Bilateral Filtering）平滑深度图。相比于高斯滤波，双边滤波在平滑图像的同时，能够有效保留边缘信息，使深度图中物体的边界保持清晰。对于图像中的每个像素$i$，其双边滤波后的结果$I_{bf}(i)$计算公式为\ref{con:bilateral}：
+\begin{equation}
+    I_{bf}(i)=\frac{1}{W(i)}\sum_{j\in\Omega}G_{\sigma_d}(\left \| i - j \right \|)G_{\sigma_r}(\left \| I(i)-I(j) \right \|)I(j)
+    \label{con:bilateral}
+\end{equation}
+
+其中，$j$表示以$i$为中心的邻域$\Omega$内的像素点。
+
+$G_{\sigma_d}(\left \| i - j \right \|)$是空间域的高斯核函数，用于衡量像素$i$和$j$在空间位置上的距离权重。其中$\sigma_d$是空间域高斯函数的标准差，$\left \| i - j \right \|$表示像素$i$和$j$之间的空间距离。
+
+$G_{\sigma_r}(\left \| I(i)-I(j) \right \|)$是值域的高斯核函数，用于衡量像素$i$和$j$在像素值上的相似性权重。其中$\sigma_r$是值域高斯函数的标准差，$\left \| I(i)-I(j) \right \|$表示像素$i$和$j$的像素值之差的绝对值。
+
+$W(i)$是归一化因子，计算方式如下\ref{con:gaosi}，它用于确保滤波后的像素值在合理范围内，对邻域内所有像素的空间权重和值域权重的乘积进行求和。
+\begin{equation}
+    W(i)=\sum_{j\in\Omega}G_{\sigma_d}(\left \| i - j \right \|)G_{\sigma_r}(\left \| I(i)-I(j) \right \|)
+    \label{con:gaosi}
+\end{equation}
+
+双边滤波同时考虑了空间距离和像素值差异两个因素，能够在平滑图像的同时较好地保留边缘等细节信息。使用双边滤波前后对比图如图\ref{fig:compare}。左侧为未经滤波的法线图和渲染图，右侧为经过双边滤波的法线图和渲染图，可以看到经过平滑的表面过渡更加流畅，颗粒感明显减少。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{image/compare.png}
+    \bicaption{双边滤波平滑后的法线图和渲染图}{Normal graph and rendering graph smoothed by bilateral filtering}
+    \label{fig:compare}
+\end{figure}
+
+\subsection{反射和折射}
+接下来根据平滑后的法线和厚度纹理进行反射、折射和阴影的计算。
+为了让渲染出的水体进一步接近真实世界中的水体表现，自然界中水体对光照的反射和折射现象，对于透明水体渲染也是必不可少的。使用环境映射（立方体贴图）来模拟水体表面的反射效果。立方体贴图是一种预先计算好的环境纹理，能够快速地根据观察方向和表面法线计算出反射方向，并从立方体贴图中采样得到反射颜色。在渲染中模拟折射效果通常基于光学原理，其中核心的理论依据是斯涅尔定律（Snell's Law），但在本系统中，为了提高计算效率，避免复杂的三角函数和开方运算，采用近似公式\ref{con:snell}。
+
+\begin{equation}
+    nUV = vUV - \frac{\text{normal}.xy \cdot \text{thickness}}{u_{\text{far}}} \cdot \text{refractScale}
+    \label{con:snell}
+\end{equation}
+
+其中，$\text{nUV}$ 是经过折射偏移后的纹理坐标，$\text{vUV}$ 是原始的纹理坐标，$\text{normal}.xy$ 是水面法线向量的 $x$ 和 $y$ 分量，$\text{thickness}$ 表示水体的厚度，它影响折射偏移的程度，$u_{\text{far}}$ 是远裁剪平面的距离，用于归一化计算，$\text{refractScale}$ 是一个缩放因子，用于控制折射效果的强度。
+
+在透明水体渲染中，渲染水体表面的反射和折射效果时，也必须考虑到 Fresnel 效应。Fresnel效应描述了光线在不同介质界面上反射和折射的比例随入射角变化的现象。在透明水体实时渲染中，通常使用Schlick近似公式\ref{con:fresnel}来简化计算。
+
+\begin{equation}
+    F = F_0+(1 - F_0)(1 - \cos\theta)^5
+    \label{con:fresnel}
+\end{equation}
+
+$F$ 是Fresnel反射系数，表示光线的反射比例。
+$F_0$ 是垂直入射（$\theta = 0^{\circ}$）时的反射系数，也称为基础反射率，它只与两种介质的折射率有关，可通过公式 $F_0=\left(\frac{n_1 - n_2}{n_1 + n_2}\right)^2$ 计算。对于空气和水的界面，$n_1 = 1$（空气折射率），$n_2 = 1.33$（水折射率），则 $F_0=\left(\frac{1 - 1.33}{1 + 1.33}\right)^2\approx0.02$。
+$\theta$ 是入射角，在三维空间中，通常用观察方向向量 $\vec{V}$ 和表面法线向量 $\vec{N}$ 的点积来计算 $\cos\theta$，即 $\cos\theta=\vec{N}\cdot\vec{V}$ ， $\vec{V}$ 和 $\vec{N}$ 都是单位向量。
+
+反射和折射计算完成后要进行颜色混合，混合方式见公式\ref{con:blendingColor}，其中$T$ 表示透明度，取值范围是 $[0, 1]$。随着水体厚度增加或吸收系数增大，透明度降低。$\mathbf{C}_{r}^{'}$ 是混合后的折射颜色，它是一个三维向量，分别代表红、绿、蓝三个颜色通道的值。
+
+\begin{equation}
+    \begin{aligned}
+    T = e^{- \text{thickness} \times \text{waterK}} \\
+    \mathbf{C}_{r}^{'}=(1 - T)\times\mathbf{C}_{wr}+T\times\mathbf{C}_{r}\\
+    \mathbf{C}=(1 - \mathbf{R}_{f})\times\mathbf{C}_{r}^{'}+\mathbf{R}_{f}\times\mathbf{C}_{ref}
+    \end{aligned}
+    \label{con:blendingColor}
+\end{equation}
+
+将混合后的折射颜色$\mathbf{C}_{r}^{'}$和反射颜色$\mathbf{C}_{ref}$按Fresnel反射系数$\mathbf{R}_{f}$进行混合，得到最终的颜色$\mathbf{C}_{final}$，这里的运算对向量的RGB通道三个分量分别进行。
+这些公式共同描述了透明水体渲染中颜色混合的整个过程，从水体透明度计算到最终片元颜色确定，模拟了水体的折射、反射和Fresnel效应等光学特性。
+
+\subsection{阴影计算}
+阴影是增强透明水体真实感的重要因素。本系统采用阴影映射（Shadow Mapping）进行阴影渲染，并用高斯模糊进行软阴影处理。根据光源视角的厚度图中流体厚度值的大小映射到地面，厚度值为0时不渲染阴影，厚度值大于0时根据当前厚度值渲染阴影的颜色深度。通过调整高斯模糊半径得到不同精细度的阴影如图\ref{fig:compare3}。从上到下的模糊半径分别为8,4,1。
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{image/compare3.png}
+    \bicaption{不同高斯模糊半径下阴影对比}{Shadow contrast under different Gaussian blur radius}
+    \label{fig:compare3}
+\end{figure}
+
+
+
+
+% \section{渲染方法的性能分析}
 
 
 
@@ -347,11 +646,30 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 \chapter{面向移动端的流体仿真系统}
 
 \section{移动端流体仿真系统架构}
+本节将会介绍基于上述流体模拟方法和流体渲染方法实现的实时流体系统。本系统基于Unity平台构建，Unity具有跨平台开发功能，支持包括 Windows、macOS、Linux、iOS、Android、WebGL等平台的协同开发，在一个平台开发后可以轻松部署到多平台。因此适合用于移动端开发。
+本流体仿真系统利用了 Unity 平台的多项特性和工具，包括 Compute Shader、Command Buffer、Render Texture 和 Unity 的渲染管线等。图\ref{fig:pipeline3}为本系统在 Unity 平台上的架构图。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=10cm]{image/pipeline3.png}
+    \bicaption{系统架构图}{System Architecture Diagram}
+    \label{fig:pipeline3}
+\end{figure}
+
+本系统主要实现了UI层、核心逻辑层和底层的结算引擎部分。其中UI层将在下一章节说明。核心逻辑层包括流体仿真、渲染以及自定义着色器的代码编写。主要逻辑如下图\ref{fig:pipeline4}。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=10cm]{image/pipeline4.png}
+    \bicaption{核心逻辑图}{Core Logic Diagram}
+    \label{fig:pipeline4}
+\end{figure}
+
 \section{流体仿真系统交互界面}
 
 
 
-\chapter{实验与结果}
+\chapter{实验与结果}\label{experiment}
 
 \section{渲染效果评估}
 \section{仿真性能评估}

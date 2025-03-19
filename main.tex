@@ -111,6 +111,11 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 
+\usepackage{float}%提供float浮动环境
+\usepackage{booktabs}%提供命令\toprule、\midrule、\bottomrule
+\usepackage{setspace} % 用于调整行间距
+
+
 \begin{document}
 
 % \input{originality.tex}   %生成论文诚信承诺书
@@ -203,11 +208,12 @@
             \end{equation}
         \item $W_{viscosity}$拉普拉斯函数（二次求导）
             \begin{equation}
-                \nabla^2 W_{viscosity}(\mathbf{r},h) = \frac{45}{r h^6} (h-r),0\le r \le h 
+                \nabla^2 W_{viscosity}(\mathbf{r},h) = \frac{45}{\pi h^6} (h-r),0\le r \le h 
                 \label{con:viskernel_3}
             \end{equation}
 
     \end{enumerate}
+    
     \item 部分函数代码
     \begin{enumerate}
       \item LoadMessageFile函数（过程），用于读取信息XML文件，取得相应节点的内容，并通过引用参数返回值。
