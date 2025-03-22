@@ -1,0 +1,137 @@
+float PressureFromDensity(float density)
+{
+    return (density - targetDensity) * pressureMultiplier;
+}
+float NearPressureFromDensity(float nearDensity)
+{
+    return nearDensity * nearPressureMultiplier;
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void ExternalForces(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    Velocities[id.x] += float3(0, gravity, 0) * deltaTime;
+    PredictedPositions[id.x] = Positions[id.x] + Velocities[id.x] * 1 / 120.0;
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void UpdateSpatialHash(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    uint index = id.x;
+    int3 cell = GetCell3D(PredictedPositions[index], smoothingRadius);
+    uint hash = HashCell3D(cell);
+    uint key = KeyFromHash(hash, numParticles);
+
+    SpatialKeys[id.x] = key;
+    SortedIndices[id.x] = id.x;
+    SpatialOffsets[id.x] = numParticles;
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void Reorder(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    uint sortedIndex = SortedIndices[id.x];
+    SortTarget_Positions[id.x] = Positions[sortedIndex];
+    SortTarget_PredictedPositions[id.x] = PredictedPositions[sortedIndex];
+    SortTarget_Velocities[id.x] = Velocities[sortedIndex];
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void ReorderCopyBack(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    Positions[id.x] = SortTarget_Positions[id.x];
+    PredictedPositions[id.x] = SortTarget_PredictedPositions[id.x];
+    Velocities[id.x] = SortTarget_Velocities[id.x];
+}
+float2 CalculateDensitiesAtPoint(float3 pos)
+{
+    int3 originCell = GetCell3D(pos, smoothingRadius);
+    float sqrRadius = smoothingRadius * smoothingRadius;
+    float density = 0;
+    float nearDensity = 0;
+    for (int i = 0; i < 27; i++)
+    {
+        uint hash = HashCell3D(originCell + offsets3D[i]);
+        uint key = KeyFromHash(hash, numParticles);
+        uint currIndex = SpatialOffsets[key];
+        while (currIndex < numParticles)
+        {
+            uint neighbourIndex = currIndex;
+            currIndex++;
+            uint neighbourKey = SpatialKeys[neighbourIndex];
+            if (neighbourKey != key)
+                break;
+            float3 neighbourPos = PredictedPositions[neighbourIndex];
+            float3 offsetToNeighbour = neighbourPos - pos;
+            float sqrDstToNeighbour = dot(offsetToNeighbour, offsetToNeighbour);
+            if (sqrDstToNeighbour > sqrRadius)
+                continue;
+            float dst = sqrt(sqrDstToNeighbour);
+            density += DensityKernel(dst, smoothingRadius);
+            nearDensity += NearDensityKernel(dst, smoothingRadius);
+        }
+    }
+    return float2(density, nearDensity);
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void CalculateDensities(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    float3 pos = PredictedPositions[id.x];
+    float2 densities = CalculateDensitiesAtPoint(pos);
+    Densities[id.x] = densities;
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void CalculateViscosity(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    float3 pos = PredictedPositions[id.x];
+    int3 originCell = GetCell3D(pos, smoothingRadius);
+    float sqrRadius = smoothingRadius * smoothingRadius;
+    float3 viscosityForce = 0;
+    float3 velocity = Velocities[id.x];
+    for (int i = 0; i < 27; i++)
+    {
+        uint hash = HashCell3D(originCell + offsets3D[i]);
+        uint key = KeyFromHash(hash, numParticles);
+        uint currIndex = SpatialOffsets[key];
+
+        while (currIndex < numParticles)
+        {
+            uint neighbourIndex = currIndex;
+            currIndex++;
+            uint neighbourKey = SpatialKeys[neighbourIndex];
+            if (neighbourKey != key)
+                break;
+            if (neighbourIndex == id.x)
+                continue;
+            float3 neighbourPos = PredictedPositions[neighbourIndex];
+            float3 offsetToNeighbour = neighbourPos - pos;
+            float sqrDstToNeighbour = dot(offsetToNeighbour, offsetToNeighbour);
+            if (sqrDstToNeighbour > sqrRadius)
+                continue;
+            float dst = sqrt(sqrDstToNeighbour);
+            float3 neighbourVelocity = Velocities[neighbourIndex];
+            viscosityForce += (neighbourVelocity - velocity) * SmoothingKernelPoly6(dst, smoothingRadius);
+        }
+    }
+    Velocities[id.x] += viscosityForce * viscosityStrength * deltaTime;
+}
+[numthreads(ThreadGroupSize, 1, 1)]
+void UpdatePositions(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numParticles)
+        return;
+    float3 vel = Velocities[id.x];
+    float3 pos = Positions[id.x];
+    pos += vel * deltaTime;
+    ResolveCollisions(pos, vel, collisionDamping);
+    Positions[id.x] = pos;
+    Velocities[id.x] = vel;
+}

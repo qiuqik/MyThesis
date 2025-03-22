@@ -46,11 +46,11 @@
     % 说明:
     %   若 graduationYear 字段为空，则内封面毕业届别为 year
     %
-    keywords = {流体仿真, 流体模拟, 计算机图形学, 流体渲染, 光线追踪},
+    keywords = {流体仿真,移动平台,光滑粒子流体动力学（SPH）,屏幕空间渲染（SSR）,实时性能},
     % 中文关键词
     % 请使用英文逗号 "," 以分隔
     %
-    keywordsEN = {Fluid Simulation, Computer Graphics, Fluid Rendering, Ray Tracing},
+    keywordsEN = {Fluid Simulation,Mobile Platforms,Smoothed Particle Hydrodynamics (SPH),Screen Space Rendering (SSR),Real-time Performance},
     % 英文关键词
     % 请使用英文逗号 "," 以分隔
     %
@@ -116,6 +116,59 @@
 \usepackage{setspace} % 用于调整行间距
 
 
+\usepackage{listings}
+\usepackage{ctex}
+
+
+% 用来设置附录中代码的样式
+
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 别问为什么，加上这个
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不现实了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{C++}{
+    language        =   C++, % 语言选C++
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.6em,
+}
+
+% \lstdefinestyle{mystyle}{
+%     basicstyle=\ttfamily,
+%     breakatwhitespace=false,
+%     breaklines=true,
+%     captionpos=b,
+%     keepspaces=true,
+%     showspaces=false,
+%     showstringspaces=false,
+%     showtabs=false,
+%     tabsize=2,
+%     lineskip=0pt, % 去除额外空行
+%     frame=single, % 为代码添加单一线框
+%     numbers=left, % 在左侧添加行号
+%     numberstyle=\tiny, % 行号的字体大小
+%     numbersep=5pt % 行号与代码之间的间距
+% }
+
+% \lstset{style=mystyle}
+
+
 \begin{document}
 
 % \input{originality.tex}   %生成论文诚信承诺书
@@ -127,18 +180,23 @@
 \frontmatter
 
 \begin{abstract}
-  本文通过一个实际的对日软件外包案件的设计和实现，经历了整个软件开发的过程，包括系统分析、概要设计、详细设计、编码、测试，为某制药企业开发了一个 B2B 的电子商务系统。本系统主要是以该制药企业为购买方，发布企业所需要的货物清单，以本系统为平台，各个供应商进行竞标，由购买方选择购买供应商的货物并下订单发货。由于购买方发布货物需要对大量数据进行操作，因此制作了数据批处理程序，来实现大量数据的导入和导出。系统的在线部分运用了XML和XSL技术，体现了画面实现模版化的优势，使得更有效方便的实现画面重载。该系统的开发过程中，本人主要负责制造在线部分的登陆、Home、估价请求履历检索、取消订单一览、用户信息作成、通知信息作成6个模块以及数据批处理部分的供应商 Master 导入程序。
-
-  使用该系统，制药企业可以在众多供应商中选择最价廉物美的原材料，这样大大降低其成本，提高了企业利润。同时，供应商之间也有了相互竞争，可以促进生产，达到“双赢”的效果。
-  本文最后说明了对日软件开发过程与当今我国软件开发过程的区别，并对我国今后软件事业做了期望和展望。
+  本论文研究了面向移动平台的轻量化实时流体仿真技术，旨在为移动设备提供高效、真实的流体效果。随着移动设备性能的提升，流体仿真在游戏、动画和虚拟现实等领域的应用日益广泛。然而，传统的流体仿真方法往往计算复杂、资源消耗大，难以在移动平台上实现实时效果。因此，本文提出了一种基于光滑粒子流体动力学（SPH）和屏幕空间渲染（SSR）技术的流体仿真方法，以满足移动设备的性能需求。
+  
+  研究首先回顾了流体仿真和渲染的相关工作，分析了现有技术的优缺点，指出了低功耗渲染技术的研究进展。接着，本文详细介绍了基于粒子的快速流体仿真方法，重点阐述了SPH算法的实现细节及其在移动平台上的优化策略。并通过对比多种流体渲染方法选择高效的屏幕空间渲染方法进行流体渲染。最后，本文构建了一个适用于移动端的流体仿真系统，包含流体仿真模块、渲染模块及交互界面。
+  
+  在实验部分，本文介绍了流体仿真系统的实现细节，并进行了性能评估和渲染效果评估。实验结果表明，所提出的方法在保证流体效果真实感的同时，显著提高了仿真性能，能够在移动设备上实现流畅的实时流体效果。最后，本文总结了研究成果，讨论了当前工作的局限性，并展望了未来可能的改进方向，包括进一步优化算法、提升渲染效果以及扩展应用场景。
+  
+  本研究为移动平台的流体仿真提供了一种新的解决方案，具有重要的理论意义和实际应用价值。通过优化流体仿真技术，能够为移动设备用户带来更为丰富的视觉体验，推动相关领域的发展。
 \end{abstract}
 
 \begin{abstractEN}
-  This paper concerns with design and achievement of a software development project for Japanese company, experence the whole process of software development including system analysis, general design, detail design, coding, testing to develop a B2B E-business system for some Medicine Manufacture Enterprise. In this system, the Medicine Manufacture Enterprise as the buyers publish products list.The suppliers use this system as plat to bit products.Then the buyers select suppliers they need and send order to buy products.This system also has some batches to realize huge data importing and exporting.This system's webs use XML and XSL technologies to realize reloading of web templates. During the development of the system, my duty is to develop six webs and one batch.
-
-  Using this system, Medicine Manufacture Enterprise can select the best and the cheapest products in several suppliers to descreat cost. At the same time, suppliers will bit each other to inprove production and reach ‘Win-Win’.
+  This paper investigates lightweight real-time fluid simulation technology for mobile platforms, aiming to provide efficient and realistic fluid effects on mobile devices. As mobile device performance improves, the application of fluid simulation in gaming, animation, and virtual reality is increasingly prevalent. However, traditional fluid simulation methods often involve complex calculations and high resource consumption, making real-time implementation on mobile platforms challenging. Therefore, this study proposes a fluid simulation method based on Smoothed Particle Hydrodynamics (SPH) and Screen Space Rendering (SSR) techniques to meet the performance requirements of mobile devices.
   
-  At the end of this paper, also explain the deference between Janpanese software development processing and Chinese, and give the deep expectance.
+  The research begins with a review of related work in fluid simulation and rendering, analyzing the strengths and weaknesses of existing technologies while highlighting advancements in low-power rendering techniques. The paper then details a fast fluid simulation method based on particles, focusing on the implementation of the SPH algorithm and its optimization strategies for mobile platforms. By designing the architecture of a fluid simulation system, this study constructs a mobile-friendly fluid simulation system that includes simulation, rendering modules, and an interactive interface.
+  
+  In the experimental section, the proposed fluid simulation system is evaluated for performance and rendering quality. Results indicate that the proposed method significantly enhances simulation performance while maintaining realistic fluid effects, enabling smooth real-time fluid simulation on mobile devices. Finally, the paper summarizes the research findings, discusses the limitations of the current work, and outlines potential future improvements, including further algorithm optimization, enhanced rendering effects, and expanded application scenarios.
+  
+  This research provides a new solution for fluid simulation on mobile platforms, holding significant theoretical and practical value. By optimizing fluid simulation technology, it aims to deliver a richer visual experience for mobile users and promote the development of related fields.
 \end{abstractEN}
 
 
@@ -213,18 +271,27 @@
             \end{equation}
 
     \end{enumerate}
-    
-    \item 部分函数代码
-    \begin{enumerate}
-      \item LoadMessageFile函数（过程），用于读取信息XML文件，取得相应节点的内容，并通过引用参数返回值。
-      \item LoadMessageFile函数（过程），用于读取信息XML文件，取得相应节点的内容，并通过引用参数返回值。
-    \end{enumerate}
+
+    %  插入代码
+    \item 流体模拟部分核心代码
+    % \lstinputlisting[language=C++, caption=流体模拟部分核心代码, label=lst:fluid_simulation]{fluid_simulation.cpp}
+    \lstinputlisting[
+      style       =   C++,
+      caption     =   {\bf FluidSim.compute}
+    ]{FluidSim.compute}
+    \item 流体渲染部分核心代码
+    % \lstinputlisting[language=C++, caption=流体渲染部分核心代码, label=lst:fluid_rendering]{fluid_rendering.cpp}
+    \lstinputlisting[
+      style       =   C++,
+      caption     =   {\bf FluidRender.shader}
+    ]{FluidRender.shader}
+
   \end{enumerate}
 \end{appendix}
 
 % 致谢
 \begin{acknowledgement}
-  感谢天，感谢地，感谢阳光照耀了大地。
+  
 \end{acknowledgement}
 
 \end{document}

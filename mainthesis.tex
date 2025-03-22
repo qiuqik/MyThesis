@@ -3,8 +3,16 @@
 
 \section{研究背景}
 
-\indent 流体仿真作为一种重要的物理模拟技术，能够通过计算流体力学和数值计算方法，模拟水、烟雾、火焰等自然现象的动态行为，被广泛应用于科学计算、工程设计、影视制作、游戏开发、虚拟现实（VR）等领域。通过流体仿真，研究者和开发者可以直观地呈现复杂的自然过程，以满足逼真的视觉体验或精确的工程需求。传统的流体仿真通常依赖于复杂的计算模型，尤其在追求高精度和大规模仿真效果的场景中，流体仿真往往需要借助高性能计算平台，如 PC、工作站甚至是 GPU 集群\cite{kipfer2004uberflow}，才能满足实时模拟的需求。
-\newline
+\indent 流体仿真作为一种重要的物理模拟技术，能够通过计算流体力学和数值计算方法，模拟水、烟雾、火焰等自然现象的动态行为，被广泛应用于科学计算、工程设计、影视制作、游戏开发、虚拟现实（VR）等领域。真实水体照片如图\ref{fig:realwater}所示。通过流体仿真，研究者和开发者可以直观地呈现复杂的自然过程，以满足逼真的水体视觉体验或精确的工程需求。传统的流体仿真通常依赖于复杂的计算模型，尤其在追求高精度和大规模仿真效果的场景中，流体仿真往往需要借助高性能计算平台，如 PC、工作站甚至是 GPU 集群\cite{kipfer2004uberflow}，才能满足实时模拟的需求。
+
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=8cm]{image/nativeWater.jpg}
+ \bicaption{真实水体照片}{Real water photo}
+ \label{fig:realwater}  
+\end{figure}
+
 \indent 随着移动设备（如智能手机和平板电脑）硬件性能的提升，用户对高质量图形和物理仿真效果的需求日益增长。流体仿真作为一种复杂的物理模拟方法，具有广泛的应用前景。然而，移动设备在功耗、性能和内存带宽等方面的限制，使得在移动端实现高效且低功耗的3D流体渲染面临诸多挑战。一方面，流体渲染需要模拟复杂的物理现象，如流动、反射、折射和透明度变化，这些计算任务对硬件资源的消耗巨大；另一方面，移动设备的续航能力和散热性能有限，这要求我们在实现逼真视觉效果的同时，必须兼顾功耗控制和性能优化。
 \newline
 \indent 针对实时仿真需求，近年来研究者们对传统的流体仿真算法进行了多种轻量化改造。光滑粒子流体动力学（SPH）算法\cite{muller2003particle}作为一种常用的流体仿真算法，广泛应用于模拟水流等粒子流体，但计算复杂度较高。 Viccione\cite{viccione2008defining}等人通常通过简化邻域搜索等方法优化 SPH 算法，以减少其计算量和内存消耗。另一种常用的流体仿真方法是位置约束动力学（PBF）\cite{macklin2013position}，由于其对于约束条件的处理较为高效，适合低精度、轻量化的实时仿真应用。PBF 算法通过减少约束计算复杂度和优化求解流程，使其在保证仿真效果的同时降低了资源占用。除了计算优化之外，渲染方法的简化也是流体仿真轻量化的重要一环，研究者们通过简化着色器设计、减少光照计算\cite{kunimatsu2001fast}等，来降低流体仿真渲染的资源消耗。近期 Zhang\cite{zhang2024real}等人的工作利用屏幕空间渲染的 SPH 实现了多相流流体的实时渲染。而随着机器学习技术的发展，一些工作将深度学习应用于流体仿真\cite{brunton2020machine}，Brunton\cite{pack2018toward}等人将机器学习与 FLIP 流体模拟方法相结合，得到了实时模拟的效果。
@@ -36,9 +44,9 @@
 上述方法虽然能够很好地模拟水面的性质，但仍然缺乏真实性以及无法呈现复杂的流体效果。所以基于物理的流体模拟方法被提出，根据离散化视角的不同分为欧拉网格法、拉格朗日粒子和粒子网格混合法。
 
 % \subsection{欧拉网格法}
-\begin{figure}[ht]
+\begin{figure}[ht] 
  \centering
- \includegraphics[width=10cm]{image/mac.png}
+ \includegraphics[width=8cm]{image/mac.png}
  \bicaption{二维MAC网格}{2D MAC Grid}
  \label{fig:mac}
 \end{figure}
@@ -72,7 +80,7 @@
 
 \begin{figure}[ht]
  \centering
- \includegraphics[height=6.5cm]{image/anis.png}
+ \includegraphics[width=12cm]{image/anis.png}
  \bicaption{左上：球形粒子，左下：Adams\cite{adams2007adaptively}，右：Yu\cite{yu2013reconstructing}}{Top left: spherical particles, bottom left: Adams, right: Yu}
  \label{fig:anis}
 \end{figure}
@@ -85,12 +93,12 @@
 
 \begin{figure}[ht]
  \centering
- \includegraphics[height=5cm]{image/ssr.png}
- \bicaption{左上图为原始粒子，右上图为未平滑表面，左下图为平滑法线表面，右下图为透明流体渲染效果\cite{1023594216.nh}}{The upper left picture shows the original particles, the upper right picture shows the unsmoothed surface, the lower left picture shows the smoothed normal surface, and the lower right picture shows the transparent fluid rendering effect}
+ \includegraphics[width=12cm]{image/ssr.png}
+ \bicaption{双边高斯滤波模糊渲染效果对比图\cite{1023594216.nh}}{Comparison of bilateral Gaussian filter blur rendering effects}
  \label{fig:ssr}
 \end{figure}
 
-\indent 真实感流体模拟和渲染在计算上的开销是巨大的，屏幕空间渲染\cite{van2009screen}给出了粒子渲染的一种新思路。这类方法舍弃了流体表面的匹配和重建的传统思路，给出了简单、实时、低消耗的实现方案。主要思路是通过流体粒子在屏幕空间的深度纹理和厚度纹理重建法线，再结合光线追踪操作对表面进行着色。在进行深度纹理还原法线的步骤中，不经过平滑会得到粒子感较强的流体表面，因此对屏幕空间渲染算法的改进涉及多种滤波器方法\cite{muller2007screen, bagar2010layered, neto2017real, truong2018narrow, oliveira2022narrow}。其中Neto L S R\cite{neto2017real}提出使用双边高斯滤波进行深度图的模糊，取得了较好的效果，如图\ref{fig:ssr}。在对重建得到的法线进行透明水体材质的渲染时，几乎所有系统都采纳了一种名为 Cook-Torrance BRDF\cite{cook1982reflectance}的反射模型。经过较多研究进行优化\cite{schlick1994inexpensive, burley2012physically}，该方法已经成为一套成熟的实时渲染解决方案。
+\indent 真实感流体模拟和渲染在计算上的开销是巨大的，屏幕空间渲染\cite{van2009screen}给出了粒子渲染的一种新思路。这类方法舍弃了流体表面的匹配和重建的传统思路，给出了简单、实时、低消耗的实现方案。主要思路是通过流体粒子在屏幕空间的深度纹理和厚度纹理重建法线，再结合光线追踪操作对表面进行着色。在进行深度纹理还原法线的步骤中，不经过平滑会得到粒子感较强的流体表面，因此对屏幕空间渲染算法的改进涉及多种滤波器方法\cite{muller2007screen, bagar2010layered, neto2017real, truong2018narrow, oliveira2022narrow}。其中Neto L S R\cite{neto2017real}提出使用双边高斯滤波进行深度图的模糊，取得了较好的效果，如图\ref{fig:ssr}，其中左上图为原始粒子，右上图为未平滑表面，左下图为平滑法线表面，右下图为透明流体渲染效果。在对重建得到的法线进行透明水体材质的渲染时，几乎所有系统都采纳了一种名为 Cook-Torrance BRDF\cite{cook1982reflectance}的反射模型。经过较多研究进行优化\cite{schlick1994inexpensive, burley2012physically}，该方法已经成为一套成熟的实时渲染解决方案。
 \newline
 \indent 以Marching Cubes为代表的传统表面重建方法在 GPU 并行化上还有较大优化空间，整体算法计算量较大，无法实时渲染大规模流体场景。使用光线追踪技术进行流体渲染的计算量相对较大，但能够产生足够平滑和具有真实感的效果。屏幕空间渲染方法速度快，能够大大减少计算资源的消耗，尤其适合实时渲染应用，但渲染质量不如光线追踪进行流体渲染的效果。
 
@@ -162,7 +170,7 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 
 \begin{figure}[ht]
  \centering
- \includegraphics[height=5cm]{image/threekernel.png}
+ \includegraphics[width=1.0\linewidth]{image/threekernel.png}
  \bicaption{三种平滑核，从左到右分别为$W_{poly6}$，$W_{spiky}$，$W_{viscosity}$。粗线表示基本核函数，细线表示梯度，虚线表示拉普拉斯算子}{The three smoothing kernels $W_{poly6}$, $W_{spiky}$, $W_{viscosity}$(from left to right)}
  \label{fig:threekernel}
 \end{figure}
@@ -218,21 +226,25 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 
 本文采用的流体模拟方法基于传统SPH，但在流程和具体求解方法上进行了调整和优化，总体流程如图\ref{fig:pipeline2}。
 为提高流体粒子模拟的稳定性和真实感，系统在每帧内设置迭代次数，每次迭代即对上图流程进行一次串行遍历，针对具体对象的计算通过ComputerShader在GPU并行处理。在每个子步中，首先对所有粒子根据其当前位置、速度和重力计算预测位置和速度，将得到的新粒子位置和速度传输到下一步骤。在更新邻域查找表步骤中进行空间散列更新和排序，通过哈希存储和并行计数排序使得每次邻域查找的时间复杂度为$O(1)$，这部分具体解释见章节\ref{optim}。
+
 在不可压缩性求解过程中，仅依靠简单的密度和压力项无法防止粒子聚集。一个粒子可能通过强烈吸引少量邻居达到目标密度值，导致流体分离成独立团簇而缺乏连续性和真实感。同时，由于原始方法没有针对流体表面粒子的特殊情况进行专门处理。如图\ref{fig:surface}所示，绿色粒子的邻域完整，而位于流体表面的红色粒子在空气中没有相邻粒子，导致其密度被低估，进而导致流体表面的粒子有向空气中移动的趋势。以空气中的水滴为例，当其落下时，内部粒子会四散开来，而正常的水滴由于表面张力的作用会聚集在一起落下。为了解决上述粒子聚集问题和表面张力问题，我们对密度和压力的求解进行了改进。
-\begin{figure}[ht]
+\begin{figure}[h]
  \centering
- \includegraphics[height=5cm]{image/bounder.png}
+ \includegraphics[height=4cm]{image/bounder.png}
  \bicaption{流体表面问题}{Fluid surface problem}
  \label{fig:surface}
 \end{figure}
 
+
 我们参考了\cite{clavet2005particle}提出的近密度和近压力方法。该方法增加一个额外的压力，即近压力，该额外压力通过近密度计算，近密度计算相比原始密度计算采用了更加尖锐的核函数，如图\ref{fig:nearkernel}。
-\begin{figure}[ht]
+\begin{figure}[h]
  \centering
- \includegraphics[height=5cm]{image/nearkernel.png}
+ \includegraphics[height=4cm]{image/nearkernel.png}
  \bicaption{近密度核和原始密度核图像的对比}{Comparison of near density kernel and original density kernel images}
  \label{fig:nearkernel}
 \end{figure}
+
+
 为了让近压力完全是排斥力，将近压力定义为$P_i^{near}=k^{near}\rho_i^{near}$，这与原始压力的定义类似，但静止密度为零，它在粒子间相互作用中提供额外的排斥力，防止粒子过度聚集。具体算法中，对每个粒子计算密度、近密度、压力和近压力，然后更新预测粒子位移。当粒子位置的密度小于指定密度时，压力和近压力对邻居粒子的作用不同。压力将邻居粒子向该粒子拉近，近压力则将邻居粒子推离，从而避免粒子聚集。压力和近压力对不同距离的邻居粒子的影响也不同。较远的邻居粒子受近压力影响小。这是因为近压力的核函数$(1-\frac{r_{ij}}{h})^2$ 随着粒子间距离$r_{ij}$的增大而迅速减小，所以对于距离较远的邻居粒子，近压力的作用相对较弱。在压力的吸引作用下，较远的邻居粒子更容易移动，因为它们受到的近压力排斥较小，而压力的吸引作用相对更显著 。最近粒子受到近压力的排斥作用相对较强，这种平滑排斥使得最近粒子不会过度靠近中心粒子。这种排斥作用虽然是短距离的，但却间接导致了长距离的吸引效果。因为较远粒子在压力吸引下向中心粒子靠近时，最近粒子的排斥使得较远粒子之间的相对位置发生变化，从而在宏观上表现出一种长距离的吸引效果，从而形成表面张力效果。使用近密度和近压力方法，粒子能与所有紧邻邻居保持等距，避免粒子聚集，也能使远距离粒子不至于太分散，模拟表面张力效果。
 
 在对粘度进行计算时，原始基于物理的粘性计算稳定性差且计算成本较高，我们选用XSPH\cite{schechter2012ghost}中的非物理的粘性计算方法。该方法能够对粒子速度进行局部平滑处理，从而有效减少粒子的震荡情况。其实现方式简单且效率更高，并且具有良好的稳定性。该粘性方法对应的速度场平滑化公式如下\eqref{con:XSPH}。应用该粘度力方程，意味着随着时间的推移，每个粒子的速度会变得更像它的邻居，邻居对该粒子的影响由粘性强度系数$\varepsilon$和粘度核函数（本系统使用$W_{poly6}$核函数）控制。
@@ -244,7 +256,7 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 最后更新粒子位置时进行碰撞检测，在触碰到边界时将粒子速度反向并乘以阻尼系数。经上述步骤模拟的流体粒子每30帧共600帧图像如图\ref{fig:paritcleSim}所示，其中粒子用点精灵代替，颜色根据速度大小进行渲染。
 \begin{figure}[ht]
  \centering
- \includegraphics[height=5cm]{image/pic3.png}
+ \includegraphics[width=1.0\linewidth]{image/pic3.png}
  \bicaption{流体粒子模拟逐帧图}{Fluid particle simulation frame-by-frame diagram}
  \label{fig:paritcleSim}
 \end{figure}
@@ -258,29 +270,34 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 
 基于这种方法，我们考虑优化其数据结构，通过设置与粒子数量等长的额外两个数组，使得不需要提前知道网格的尺寸，粒子可以传播到世界上任何地方。下面将以图\ref{fig:gridParticle}所示的网格和粒子分布阐述本文系统在邻域搜索的数据结构上优化的具体步骤。
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[height=5cm]{image/gridParticle.png}
+    \includegraphics[height=7cm]{image/gridParticle.png}
     \bicaption{网格粒子分布示例}{Example of mesh particle distribution}
     \label{fig:gridParticle}
    \end{figure}
 
 
 假设有十个粒子以如图所示的分布状态存在，当前只拥有每个粒子在世界空间坐标系下的位置，现在创建一个大小与粒子数目相同的数组，称为空间查找数组（Spatial Lookup）。对每个粒子计算其所在单元格的坐标。例如粒子0，位于单元格（2,0）。为了便于检索，我们需要将坐标转换为单个数字便于检索，可以通过将x和y坐标乘以两个不同的素数，然后相加，得到某个任意哈希值6613，再将它映射到数组长度上，变成了有效索引3，称为单元格键值，然后将单元格键值存储在空间查找数组下标为0处。接下来以此类推，遍历所有粒子，按照粒子在世界空间坐标系下的位置计算其所在单元格的位置，并将其对应的单元格键值存入空间查找数组中。
+
 为了让在同一个单元格中的点在空间查找数组中彼此相邻从而有效地循环遍历它们。根据同一单元格的点具有相同的单元格键值，可以简单地根据这些键值对空间查找数组进行排序。得到如图从小到大排列单元格键值的数组，空间查找数组即初始化构建完成。其中所有位于同一单元格的粒子彼此相邻。
+
+
 接下来我们创建同样与粒子数量等长的第二个数组，称为起始索引数组（Start Indices）。我们的最终目标是直接通过当前粒子邻域单元格的位置得到该单元格内所有粒子的索引。因此我们需要当得到某单元格位置时，存在一个数组，能够根据当前单元格位置对应的单元格键值查找空间查找数组中对应单元格键值的起始位置。因此需要起始索引数组，该数组在空间查找数组构建完成后扫描整个空间查找数组，记录所有连续相等的单元格键值的起始位置，并将其对应下标存在起始索引数组下标为当前单元格键值的位置。具体示例见图\ref{fig:gridArray}。
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[height=5cm]{image/gridArray.png}
+    \includegraphics[height=8cm]{image/gridArray.png}
     \bicaption{空间查找数组和起始索引数组示意图}{Spatial lookup array and Start Indices array schematic}
     \label{fig:gridArray}
    \end{figure}
+
 因为哈希函数自身的特点，会出现随机的单元格恰好和当前单元格有着相同的单元格键值。在进行遍历的时候，会对这个随机单元格中的额外粒子进行检查。这样的情况会造成一些时间上的消耗，而这种情况是在尝试实现具有无限内存的无限网格时所出现的结果。
 在每次循环中需要重新构建一次空间查找数组和起始索引数组，但这两个数组为接下来求解密度、压力和粘度时提供了时间复杂度为$O(1)$的邻域查找速度。
 
 % 计数排序
 \subsubsection{并行排序算法优化}
 在上述邻域搜索优化步骤中，对空间查找数组的排序是耗时最长的环节，因此有必要对排序算法进行优化。尽管在CPU上实现排序算法相对简单，而在GPU上排序由于GPU高度并行的单指令多数据（SIMD）架构而不太容易实现。但鉴于GPU在内存受限和计算受限算法方面的性能都优于CPU，因此找到在GPU上高效排序的方法非常重要。同时因为本文系统的目标是构建移动端实时流体仿真系统，因此优先考虑基于GPU的并行排序方法。
+
 一个可选择的高效并行排序算法是双调归并排序算法。该算法的并行实现基本流程如图\ref{fig:bitonic}所示，每个工作线程对每对可排序元素做一次比较和交换操作，经互相独立的若干次交换之后就完成了整个数组的排序。这种并行方法的时间复杂度是$O(\log^2 n)$，并通过原地排序实现$O(1)$的空间复杂度，在排序时不消耗额外空间，且适用于任何数据结构。
 
 
@@ -365,6 +382,7 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 \section{移动端的参数优化}
 
 在流体模拟中，参数对模拟效果与性能影响显著。本文系统涉及粒子数目、邻域半径、迭代次数、粘度系数、压力乘数（刚度系数）及分辨率等关键参数。粒子数目与邻域半径是影响模拟性能和效果的重要因素。粒子数目增加，可细化流体流动特征，提升模拟真实度，但会显著增大计算量，降低系统性能。邻域半径增大，粒子间相互作用信息更全面，模拟效果会更逼近真实流体运动。迭代次数同样关键，增加迭代次数会使模拟结果逐渐收敛，从而提升真实度，但计算量也会增加。粘度系数和刚度系数决定流体特性，粘度系数增大，流体粘稠度增加，内摩擦力增大、流速减缓；刚度系数增大，流体受外力时变形减小，更具刚性。
+
 为优化系统，本文通过对比不同参数组合下的模拟效果与性能，筛选最优参数。本节先展示不同参数下流体仿真性能对比，再基于模拟效果的真实感调整优化参数。本节实验在PC端基于Windows 10操作系统，Intel Core i5-1135G7处理器，NVIDIA GeForce MX450显卡，CUDA 12.0，Unity 2022.3.48f1。基于移动端的性能分析见章节\ref{experiment}。
 % 在移动端基于Android 14操作系统，Qualcomm Snapdragon 8 Gen 2处理器，Adreno 740显卡，OpenGL ES 3.2。
 
@@ -439,23 +457,39 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
         \end{tabular}
     \end{minipage}
     % 第三个表格放在第二行
-    \begin{minipage}{\textwidth}
-        \caption{\textbf{不同屏幕分辨率的性能}}
-        \label{tab:resolution}
-        \centering
-        \begin{tabular}{ccc}
-            \toprule
-            屏幕分辨率 & 帧率/fps & 内存/GB \\
-            \midrule
-            1920*1080(1080p) & 56.08 & 0.85 \\
-            2560*1440(2K) & 53.66 & 0.88 \\
-            3840*2160(4K) & 48.16 & 1.01 \\
-            7680*4320(8K) & 32.40 & 2.58 \\
-            \bottomrule
-        \end{tabular}
-    \end{minipage}
+    % \vspace{10pt}  % 调整间距的大小
+    % \bigskip
+    % \begin{minipage}{\textwidth}
+    %     \caption{\textbf{不同屏幕分辨率的性能}}
+    %     \label{tab:resolution}
+    %     \centering
+    %     \begin{tabular}{ccc}
+    %         \toprule
+    %         屏幕分辨率 & 帧率/fps & 内存/GB \\
+    %         \midrule
+    %         1920*1080(1080p) & 56.08 & 0.85 \\
+    %         2560*1440(2K) & 53.66 & 0.88 \\
+    %         3840*2160(4K) & 48.16 & 1.01 \\
+    %         7680*4320(8K) & 32.40 & 2.58 \\
+    %         \bottomrule
+    %     \end{tabular}
+    % \end{minipage}
 \end{table}
-
+\begin{table}[H]
+    \caption{\textbf{不同屏幕分辨率的性能}}
+    \label{tab:resolution}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        屏幕分辨率 & 帧率/fps & 内存/GB \\
+        \midrule
+        1920*1080(1080p) & 56.08 & 0.85 \\
+        2560*1440(2K) & 53.66 & 0.88 \\
+        3840*2160(4K) & 48.16 & 1.01 \\
+        7680*4320(8K) & 32.40 & 2.58 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 如表所示，粒子数目在200k时能够基本实时运行，当粒子数目增加一倍即400k时，帧率下降$52.28\%$，内存增加$6.60\%$，性能下降较为明显。随着迭代次数的增加，帧率也具有相同下降幅度，但内存占用波动不大，因为迭代次数增加影响的是一帧内迭代更新粒子位置的次数。迭代次数越高粒子运动越稳定，当迭代次数低于3时粒子运动会出现明显混乱。屏幕分辨率增加的是渲染到屏幕的像素数量，因此帧率会随分辨率的增加而下降，内存占用也会增加。
 % %经典三线表
@@ -485,40 +519,45 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 
 \subsection{模拟效果优化}
 
-在基于光滑粒子流体动力学（SPH）方法的模拟研究范畴内，不同的迭代次数、粘度系数以及压力乘数等关键参数，会对流体稳定性产生极为重要的影响。迭代次数直接关联着模拟过程中数值计算的收敛程度，随着迭代次数的增加，模拟结果会逐步逼近真实物理状态，但过高的迭代次数可能引发计算资源的过度消耗以及计算时间的大幅增长。粘度系数作为描述流体粘性特性的关键参量，对流体内部的动量传递和能量耗散起着决定性作用。当粘度系数取值较小时，流体呈现出较为稀薄的状态，内部摩擦力较小，粒子间的相互作用相对较弱，可能导致流体在模拟过程中出现不稳定的流动形态；而当粘度系数取值过大时，流体会变得过于粘稠，流动过程变得迟缓，甚至可能出现类似胶体的行为，这同样偏离了预期的真实流体特性。压力乘数则在调节流体内部压力分布方面扮演着核心角色，它通过改变压力场的强度，进而影响流体粒子的受力情况和运动轨迹。压力乘数的不当选取，可能致使流体内部压力失衡，引发粒子的异常聚集或离散，严重破坏流体的稳定性，使得模拟结果无法准确反映实际流体的动力学行为。
+在基于光滑粒子流体动力学（SPH）方法的模拟研究范畴内，不同的迭代次数、粘度系数以及压力乘数等关键参数，会对流体稳定性产生极为重要的影响。
+
+迭代次数直接关联着模拟过程中数值计算的收敛程度，随着迭代次数的增加，模拟结果会逐步逼近真实物理状态，但过高的迭代次数可能引发计算时间的大幅增长。粘度系数是描述流体粘性特性的关键参量。当粘度系数取值较小时，粒子间的相互作用相对较弱，可能导致流体不稳定；而当粘度系数取值过大时，流体会变得过于粘稠，这同样偏离了预期的真实流体特性。压力乘数主要用于调节流体内部压力分布，它通过改变压力场的强度来影响流体粒子的受力情况和运动轨迹。压力乘数的不当选取，可能致使粒子的异常聚集或离散，严重破坏流体的稳定性，使得模拟结果无法准确反映实际流体的动力学行为。
 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=14cm]{image/simResult.png}
+    \includegraphics[width=0.9\linewidth]{image/simResult.png}
     \bicaption{不同参数配置下的模拟效果}{Simulation effects under different parameter configurations}
     \label{fig:simResult}
 \end{figure}
 
-为了进一步说明不同参数对模拟效果的影响，我们挑选了不同迭代次数和粘度系数的模拟结果进行如图\ref{fig:simResult}所示的对比。我们分别对第90帧和第180帧的模拟图像进行采集。从图中可以看出，迭代次数为2时无法维持流体的稳定，每个粒子的位移完全偏离真实流体位移结果。而迭代次数为3时已经能够稳定模拟流体的行为，此时再增加迭代次数，对流体位移的真实性的提升十分轻微，但增加了计算耗时，因此我们选取迭代次数为3作为默认配置参数。在调整粘度参数时，我们展示了不设置粘度力和设置粘度系数为0.01的粘度力在模拟效果上的区别。从图中可以看到，在迭代次数为2的第90帧的两张图像，无粘度力的流体粒子完全混乱，而设置了粘度系数为0.01的粘度力的流体能较大程度上维持形态，这说明粘度力能够增强系统的稳定性并增强模拟真实感。
+为了进一步说明不同参数对模拟效果的影响，我们挑选了不同迭代次数和粘度系数的模拟结果进行如图\ref{fig:simResult}所示的对比。
+我们分别对第90帧和第180帧的模拟图像进行采集。从图中可以看出，迭代次数为2时无法维持流体的稳定，每个粒子的位移完全偏离真实流体位移结果。而迭代次数为3时已经能够稳定模拟流体的行为，此时再增加迭代次数，对流体位移的真实性的提升十分轻微，但增加了计算耗时，因此我们选取迭代次数为3作为默认配置参数。在调整粘度参数时，我们展示了不设置粘度力和设置粘度系数为0.01的粘度力在模拟效果上的区别。从图中可以看到，在迭代次数为2的第90帧的两张图像，无粘度力的流体粒子完全混乱，而设置了粘度系数为0.01的粘度力的流体能较大程度上维持形态，这说明粘度力能够增强系统的稳定性并增强模拟真实感。
 
 
 总而言之，通过以上优化，我们能够在实现一定程度真实感的流体模拟的同时保持模拟达到实时效率。
 
 
-\chapter{流体渲染方法}
+\chapter{基于屏幕空间的流体渲染方法}
 
-\section{流体渲染方法性能分析}
+\section{简介}
 
-上一章节的流体模拟模块得到的是存储每帧流体粒子的位置数据的缓冲区，为了得到光滑流体表面以及流体表面的折射、反射和阴影效果，需要对流体粒子进行表面重建和渲染。对流体表面进行渲染的方法主要有三种。Marching Cubes方法时间复杂度高且计算量大，本文不予考虑。Ray Marching方法属于光线追踪的轻量化优化方法，可以实现非常真实的光照效果，但计算量较大。与前两种方法在三维空间进行计算不同，SSR方法在屏幕空间中进行渲染。它利用屏幕上的像素信息进行渲染，效率最高，但无法精确处理光线在水体中的传播，渲染效果不如Ray Marching方法真实。
+上一章节的流体模拟模块得到的是存储每帧流体粒子的位置数据的缓冲区，为了得到光滑流体表面以及流体表面的折射、反射和阴影效果，需要对流体粒子进行表面重建和渲染。
 
-我们对Ray Marching方法和SSR方法的实现效率和效果进行对比如图\ref{fig:render1}。可以明显看出Ray Marching方法对于光线的折射和反射处理地更加精细和真实，而SSR方法效果则较为模糊。但在渲染效率上，SSR方法比Ray Marching方法高近$80\%$，因此有必要牺牲部分渲染效果以达到实时渲染目的。
+对流体表面进行渲染的方法主要有三种。Marching Cubes方法时间复杂度高且计算量大，本文不予考虑。Ray Marching方法属于光线追踪的轻量化优化方法，可以实现非常真实的光照效果，但计算量较大。与前两种方法在三维空间进行计算不同，SSR方法在屏幕空间中进行渲染。它利用屏幕上的像素信息进行渲染，效率最高，但无法精确处理光线在水体中的传播，渲染效果不如Ray Marching方法真实。
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=12cm]{image/render1.png}
-    \bicaption{Ray Marching方法和SSR方法效果对比}{Comparison of Ray Marching Method and SSR Method}
+    \includegraphics[width=0.9\linewidth]{image/render1.png}
+    \bicaption{Ray Marching方法和SSR方法效果对比。上：Ray Marching方法，下：SSR方法}{Comparison of Ray Marching Method and SSR Method}
     \label{fig:render1}
 \end{figure}
 
-\section{屏幕空间渲染方法实现}
 
-本系统采用屏幕空间渲染方法对流体进行渲染。该方法主要流程如图\ref{fig:renderPipeline}。基于屏幕空间的方法直接在屏幕空间对流体进行渲染，将操作维度从三维降到二维。算法主要分两大步骤，第一大步骤为将流体粒子按照当前的投影矩阵和视图矩阵渲染到屏幕空间，获取流体粒子的深度纹理和不同视角下的流体厚度纹理，在对这些纹理信息进行模糊平滑后计算流体粒子的法线纹理。第二大步骤根据平滑后的纹理做流体的光照计算，包括反射、折射和自阴影。接下来本节将详细阐述每个子步骤用到的算法和产生的效果。
+我们对Ray Marching方法和SSR方法的实现效率和效果进行对比如图\ref{fig:render1}。可以明显看出Ray Marching方法对于光线的折射和反射处理地更加精细和真实，而SSR方法效果则较为模糊。但在渲染效率上，SSR方法比Ray Marching方法高近$80\%$，因此有必要牺牲部分渲染效果以达到实时渲染目的。
+
+
+研究采用屏幕空间渲染方法对流体进行渲染。该方法主要流程如图\ref{fig:renderPipeline}所示。基于屏幕空间的方法直接在屏幕空间对流体进行渲染，将操作维度从三维降到二维。算法主要分两大步骤，第一大步骤为将流体粒子按照当前的投影矩阵和视图矩阵渲染到屏幕空间，获取流体粒子的深度纹理和不同视角下的流体厚度纹理，在对这些纹理信息进行模糊平滑后计算流体粒子的法线纹理。第二大步骤根据平滑后的纹理做流体的光照计算，包括反射、折射和自阴影。接下来本节将详细阐述每个子步骤用到的算法和产生的效果。
 
 
 \begin{figure}[ht]
@@ -529,8 +568,10 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 \end{figure}
 
 
-\subsection{屏幕空间纹理计算}
-首先获取流体粒子的深度信息。本系统的粒子采用点精灵（Point Sprite）的方式绘制，点精灵是一个始终面向相机的薄片，我们通过适当的裁剪和投影使其符合透视原理。之后计算点精灵中心与相机之间的距离并存储到深度纹理缓存。厚度信息的计算与深度信息不同，它衡量的是在给定方向上有多少流体粒子，粒子越多，厚度值越高。计算厚度值需要开启additive blending选项，即透明加法融合，将每个粒子的厚度值进行累积并以颜色缓冲输出，得到厚度信息。该方法共需要两个方向的厚度信息，相机方向的厚度纹理用于折射计算，光源方向的厚度纹理用于阴影计算。
+\section{屏幕空间纹理计算}
+
+
+首先获取流体粒子的深度图。本系统的粒子采用点精灵（Point Sprite）的方式绘制，点精灵是一个始终面向相机的薄片，我们通过适当的裁剪和投影使其符合透视原理。之后计算点精灵中心与相机之间的距离并存储到深度纹理缓存。厚度信息的计算与深度信息不同，它衡量的是在给定方向上有多少流体粒子，粒子越多，厚度值越高。计算厚度值需要开启additive blending选项，即透明加法融合，将每个粒子的厚度值进行累积并以颜色缓冲输出，得到厚度信息。该方法共需要两个方向的厚度信息，相机方向的厚度纹理用于折射计算，光源方向的厚度纹理用于阴影计算。
 
 法线向量从深度缓存中重建。本系统利用有限差分法计算粒子在x方向和y方向的深度数据的偏导数，通过两方向的偏导数做叉乘得到法线向量。其中的x方向和y方向为屏幕空间大小的纹理坐标方向。具体计算公式如下\ref{con:grad}：
 
@@ -547,7 +588,20 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
     \end{aligned}
     \label{con:trans}
 \end{equation}
-通过上述步骤得到当前像素及其周围四个相邻像素在视图空间的位置向量，分别做x方向和y方向的差分并进行叉乘得到法线向量，其中$\Delta s = 1$。具体公式如式\ref{con:normalVector}。经上述步骤得到的深度、厚度和法线图如图\ref{fig:compare2}所示。
+
+
+通过上述步骤得到当前像素及其周围四个相邻像素在视图空间的位置向量，分别表示为 $\vec{P}$（当前像素）、$\vec{Pl}$（左相邻像素）、$\vec{Pr}$（右相邻像素）、$\vec{Pu}$（上相邻像素）、$\vec{Pd}$（下相邻像素）。对于左右方向，计算 $\vec{V_1}=\vec{Pr}-\vec{P}$ 和 $\vec{V_2}=\vec{P}-\vec{Pl}$，选择长度较短的向量作为左右方向向量 $\vec{n_{\text{left}}}$，具体公式如下\ref{con:leftVector}：
+
+\begin{equation}
+    \vec{n_{\text{left}}}=\begin{cases}
+        \vec{V_1}, & \left\|\vec{V_1}\right\|<\left\|\vec{V_2}\right\| \\
+        \vec{V_2}, & \text{otherwise}
+        \end{cases}
+    \label{con:leftVector}
+\end{equation}
+
+同理，对于上下方向，计算上下方向向量 $\vec{n_{\text{up}}}$。
+通过左右方向向量 $\vec{n_{\text{left}}}$ 和上下方向向量 $\vec{n_{\text{up}}}$ 的叉积计算法线向量 $\vec{N}$，并进行归一化处理，具体公式如式\ref{con:normalVector}。经上述步骤得到的深度、厚度和法线图如图\ref{fig:compare2}所示。
 
 \begin{equation}
     \vec{N}=\frac{\vec{n_{\text{left}}} \times \vec{n_{\text{up}}}}{\left\|\vec{n_{\text{left}}} \times \vec{n_{\text{up}}}\right\|}
@@ -556,13 +610,13 @@ SPH方法的稳定性、准确性和速度在很大程度上取决于平滑核�
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=12cm]{image/compare2.png}
+    \includegraphics[width=0.9\linewidth]{image/compare2.png}
     \bicaption{深度、法线和厚度图}{Depth, thickness and normal images}
     \label{fig:compare2}
 \end{figure}
 
 
-\subsection{屏幕空间纹理优化}
+\section{屏幕空间纹理优化}
 使用未模糊的深度图会使最终渲染效果颗粒感明显。本系统选择使用高斯双边滤波算法（Bilateral Filtering）平滑深度图。相比于高斯滤波，双边滤波在平滑图像的同时，能够有效保留边缘信息，使深度图中物体的边界保持清晰。对于图像中的每个像素$i$，其双边滤波后的结果$I_{bf}(i)$计算公式为\ref{con:bilateral}：
 \begin{equation}
     I_{bf}(i)=\frac{1}{W(i)}\sum_{j\in\Omega}G_{\sigma_d}(\left \| i - j \right \|)G_{\sigma_r}(\left \| I(i)-I(j) \right \|)I(j)
@@ -585,12 +639,12 @@ $W(i)$是归一化因子，计算方式如下\ref{con:gaosi}，它用于确保�
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=12cm]{image/compare.png}
+    \includegraphics[width=0.9\linewidth]{image/compare.png}
     \bicaption{双边滤波平滑后的法线图和渲染图}{Normal graph and rendering graph smoothed by bilateral filtering}
     \label{fig:compare}
 \end{figure}
 
-\subsection{反射和折射}
+\section{反射和折射}
 接下来根据平滑后的法线和厚度纹理进行反射、折射和阴影的计算。
 为了让渲染出的水体进一步接近真实世界中的水体表现，自然界中水体对光照的反射和折射现象，对于透明水体渲染也是必不可少的。使用环境映射（立方体贴图）来模拟水体表面的反射效果。立方体贴图是一种预先计算好的环境纹理，能够快速地根据观察方向和表面法线计算出反射方向，并从立方体贴图中采样得到反射颜色。在渲染中模拟折射效果通常基于光学原理，其中核心的理论依据是斯涅尔定律（Snell's Law），但在本系统中，为了提高计算效率，避免复杂的三角函数和开方运算，采用近似公式\ref{con:snell}。
 
@@ -626,11 +680,11 @@ $\theta$ 是入射角，在三维空间中，通常用观察方向向量 $\vec{V
 将混合后的折射颜色$\mathbf{C}_{r}^{'}$和反射颜色$\mathbf{C}_{ref}$按Fresnel反射系数$\mathbf{R}_{f}$进行混合，得到最终的颜色$\mathbf{C}_{final}$，这里的运算对向量的RGB通道三个分量分别进行。
 这些公式共同描述了透明水体渲染中颜色混合的整个过程，从水体透明度计算到最终片元颜色确定，模拟了水体的折射、反射和Fresnel效应等光学特性。
 
-\subsection{阴影计算}
+\section{阴影计算}
 阴影是增强透明水体真实感的重要因素。本系统采用阴影映射（Shadow Mapping）进行阴影渲染，并用高斯模糊进行软阴影处理。根据光源视角的厚度图中流体厚度值的大小映射到地面，厚度值为0时不渲染阴影，厚度值大于0时根据当前厚度值渲染阴影的颜色深度。通过调整高斯模糊半径得到不同精细度的阴影如图\ref{fig:compare3}。从上到下的模糊半径分别为8,4,1。
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=12cm]{image/compare3.png}
+    \includegraphics[width=0.8\linewidth]{image/compare3.png}
     \bicaption{不同高斯模糊半径下阴影对比}{Shadow contrast under different Gaussian blur radius}
     \label{fig:compare3}
 \end{figure}
@@ -656,7 +710,7 @@ $\theta$ 是入射角，在三维空间中，通常用观察方向向量 $\vec{V
     \label{fig:pipeline3}
 \end{figure}
 
-本系统主要实现了UI层、核心逻辑层和底层的结算引擎部分。其中UI层将在下一章节说明。核心逻辑层包括流体仿真、渲染以及自定义着色器的代码编写。主要逻辑如下图\ref{fig:pipeline4}。
+本系统主要实现了UI层、核心逻辑层和底层的解算引擎部分。其中UI层将在下一小节说明。核心逻辑层包括流体仿真、渲染脚本以及自定义着色器的代码编写。主要逻辑如图\ref{fig:pipeline4}。
 
 \begin{figure}[ht]
     \centering
@@ -664,19 +718,151 @@ $\theta$ 是入射角，在三维空间中，通常用观察方向向量 $\vec{V
     \bicaption{核心逻辑图}{Core Logic Diagram}
     \label{fig:pipeline4}
 \end{figure}
+程序开始后，先进行流体模拟的初始化，FluidSim 创建并设置各种缓冲区（如 positionBuffer, velocityBuffer, densityBuffer 等）。初始化完成后通过 SimulationInitCompleted 事件通知其他组件仿真初始化完成。流体模拟的运行和流体渲染的初始化并行运行。在每个单帧内，FluidSim通过SetBuffers方法将初始化的缓冲区传递给computeShader以便在计算内核中使用，然后调用Dispatch方法运行计算内核，计算内核中的代码会根据流体粒子的位置、速度和密度等信息计算下一帧的流体状态。计算完成后，通过 Graphics.CopyTexture 方法将计算结果拷贝到渲染纹理中，然后通过 CommandBuffer 将渲染纹理传递给渲染管线。渲染管线在每帧更新渲染参数，并传递到FluidRender着色器中，在着色器中进行反射折射等效果的计算，最终在屏幕上渲染出流体效果。
+
 
 \section{流体仿真系统交互界面}
+
+系统核心功能完成后，为了增强交互性以及便于调试，本系统设计了交互界面，用户可以通过界面调整流体的参数，如粒子数目、迭代次数、流体粘度、流体密度等。界面如图\ref{fig:ui}所示。
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{image/UIlook.png}
+    \bicaption{交互界面}{Interactive Interface}
+    \label{fig:ui}
+\end{figure}
+
+交互界面共两大界面，主菜单界面以及流体渲染界面。在主菜单中模块a用于调整渲染参数，包括流体密度、迭代次数以及流体运动包围盒和流体分布盒，并实时展示参数调整后的粒子数目。模块g通过滑块调整包围盒预览角度，便于调整其长宽高。模块e和模块f用于控制两界面间的跳转逻辑。在流体渲染界面，模块b展示了当前流体状态信息，包括流体粒子数目、流体密度和实时帧率。模块c的按钮分别用于控制流体暂停、播放、重置、慢放以及下一帧。模块d用于调整流体模拟参数，包括重力大小和方向、粒子大小、粘度系数以及外部包围盒的长宽高。这些参数的调整会实时影响流体的模拟效果。
+
+针对流体渲染界面，还增加了触控功能，包括双指缩放视角和单指移动视角两个功能，以便更好地观察流体的运动状态。该功能的实现如算法\label{alg:touchEvent}所示。当检测到单指触控时，根据手指滑动的水平和垂直偏移量deltaPosition计算旋转角度。通过 RotateAround 使摄像机围绕 pivot 进行旋转，实现自由视角调整。pivot 指定为当前流体包围盒。当用户使用双指触控时，计算两指触控点在当前帧与前一帧的距离差值 deltaDist ，决定缩放级别，同时通过 Clamp 限制缩放范围，确保摄像机不会无限靠近或远离目标点。最后采用 Lerp 平滑过渡摄像机位置，避免缩放过程中出现突兀的跳变。
+
+\begin{algorithm}[ht]
+    \caption{触控交互} \label{alg:touchEvent}
+    \begin{algorithmic}[1]
+    \setstretch{1.0} % 调整行间距
+    \REQUIRE 触控输入
+    \IF{$Input.touchCount == 1$}
+        \STATE $touch \gets Input.\mbox{GetTouch}(0)$
+        \IF{$touch.phase == Moved$}
+            \STATE $rotX \gets touch.deltaPosition.x \times rotationSpeed$
+            \STATE $rotY \gets -touch.deltaPosition.y \times rotationSpeed$
+            \STATE $transform.\mbox{RotateAround}(pivot, \mbox{Vector3}.up, rotX)$
+            \STATE $transform.\mbox{RotateAround}(pivot, transform.right, rotY)$
+        \ENDIF
+    \ELSIF{$Input.touchCount == 2$}
+        \STATE $touch1, touch2 \gets Input.\mbox{GetTouch}(0,1)$
+        \STATE $prevDist \gets ||(touch1 - touch1.delta) - (touch2 - touch2.delta)||$
+        \STATE $currDist \gets ||touch1 - touch2||$
+        % \STATE $deltaDist \gets \mbox{Clamp}(distance - (currDist - prevDist) \times zoomSpeed, minZoom, maxZoom)$
+        \STATE $temp \gets (currDist - prevDist) \times zoomSpeed$
+        \STATE $\mbox{deltaDist} \gets \mbox{Clamp}(distance - temp, minZoom, maxZoom)$
+        \STATE $transform.position \gets \mbox{Lerp}(transform.position, pivot - transform.forward \times distance, 0.15)$
+    \ENDIF
+    \end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+本章介绍了基于Unity平台的流体仿真系统的设计和实现。系统包括流体模拟和渲染两大模块，通过Compute Shader实现流体模拟，通过屏幕空间渲染方法实现流体渲染。系统在移动端设备上实现了流体仿真和渲染，并通过交互界面提供了流体参数的调整功能。通过触控功能，用户可以更加灵活地观察流体的运动状态。
 
 
 
 \chapter{实验与结果}\label{experiment}
 
-\section{渲染效果评估}
+在Unity端完成系统功能后，通过Unity提供的Android打包工具，可以将系统打包成APK文件，部署到移动设备上。为了能够在移动端进行调试，我们利用Unity将系统以调试项目的形式输出，并在Android Studio中进行性能测试。通过USB连接移动端设备，可以在Android Studio中查看移动端设备的各项性能数据以及系统运行情况。本章将会介绍系统在移动端的实验结果。测试设备配置如下表\ref{tab:device}所示。
+
+\begin{table}[H]
+    \caption{\textbf{测试设备配置}}
+    \label{tab:device}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        设备 & 配置 \\
+        \midrule
+        操作系统 & Android 14(64位) \\
+        处理器 & 骁龙8 Gen2 \\
+        处理器核心数 & 8 \\
+        GPU渲染器 & Adreno(TM) 740 \\
+        内存 & 16GB \\
+        显示 & 6.7英寸 1080*2412 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
 \section{仿真性能评估}
 
+本节将对移动端的仿真性能进行评估。由于移动端硬件配置较PC端有限，因此需要对流体粒子数目、迭代次数等参数进行调整，以保证流体仿真的实时性。经测试，粒子数目10k，迭代次数3时，流体仿真帧率可达到60fps。
 
-\chapter{结论}
+通过改变流体粒子数目测试移动端设备的性能变化如图\ref{fig:simResult}所示。随着粒子数目的增加，流体仿真的帧率逐渐下降，当粒子数目达到40k时，帧率降至33fps。内存用量也随着粒子数目的增加而增长，但整体内存用量占移动端设备内存的比例较小，不会对设备其他功能和应用的使用产生影响。
+
+图\ref{fig:simResult2}展示了不同迭代次数下的流体仿真帧率。可以看到，随着迭代次数的增加，流体仿真的帧率逐渐下降，当迭代次数达到9时，帧率降至40fps。但内存变化不大，因为增加迭代次数不会增加内存的使用，而是增加了计算量。
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{image/particleNums.png}
+    \bicaption{不同粒子数目的流体仿真性能}{Fluid simulation performance with different numbers of particles}
+    \label{fig:simResult}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{image/iteration.png}
+    \bicaption{不同迭代次数的流体仿真性能}{Fluid simulation performance at different iteration numbers}
+    \label{fig:simResult2}
+\end{figure}
+
+
+本节对流体仿真系统的性能进行了详细评估，包括计算速度、资源消耗等指标。通过对比实验，验证了所提出方法在移动平台上的有效性。
+
+
+\section{渲染效果评估}
+
+本节将对移动端的渲染效果进行评估。如图\ref{fig:compare4}所示，上方为移动端渲染效果，下方为PC端渲染效果，两者渲染参数均一致。可以看到，移动端的渲染效果与PC端的渲染效果基本一致，流体表面的反射、折射和阴影效果都能够很好地展现出来。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{image/compare4.png}
+    \bicaption{移动端和PC端渲染效果对比}{Comparison of Rendering Effects on Mobile and PC}
+    \label{fig:compare4}
+\end{figure}
+
+
+由上述分析可知，本系统在移动端设备上能够流畅实现流体仿真和渲染，并且能够保持流体仿真的实时性和渲染效果的真实性。本节评估了流体渲染效果，包括光滑度、细节表现和真实感等方面。实验结果表明，所提出的渲染方法能够有效提升流体的视觉效果。
+
+
+\chapter{总结与展望}
+流体仿真技术是计算机图形学领域的重要研究方向，本文基于Unity平台，实现了一套面向移动端的实时流体仿真系统。本系统基于SPH流体模拟方法和SSR流体渲染方法，实现了流体的仿真和渲染。通过对流体模拟模块和流体渲染模块的优化，本系统能够在移动端设备上实现流体的实时仿真和渲染。通过对流体仿真性能和渲染效果的评估，本系统能够在移动端设备上实现流体的实时仿真和渲染。
 
 \section{研究总结}
-\section{贡献与展望}
+
+本文主要工作有以下几方面：
+
+1. 流体模拟方法的实现与优化。本系统基于传统SPH方法，通过对流体粒子的邻域搜索数据结构和排序算法的优化，提高了流体模拟的效率。
+
+2. 流体屏幕空间实时渲染方法的实现。本系统基于SSR方法，通过对流体粒子的深度、厚度和法线纹理的计算，实现了流体的反射、折射和阴影效果。
+
+3. 设计与实现面向移动端的流体仿真系统。本系统基于Unity平台，实现了一套面向移动端的实时流体仿真系统。通过对流体仿真性能和渲染效果的评估，本系统能够在移动端设备上实现流体的实时仿真和渲染。
+
+
+
+
+\section{展望}
+
+本研究针对流体模拟和渲染进行了多维度的讨论，并对其中某些算法进行了一定程度的优化，但受限于作者本人的能力和时间，针对流体仿真的优化仍有很大的空间，如对流体粒子的邻域搜索算法、排序算法和流体表面重建算法等进行进一步优化。另外，本系统的流体渲染效果还有待进一步提升，如增加流体表面的细节、增加刻蚀光照效果等。未来的研究方向主要有以下几个方面：
+
+1. 流体模拟的优化。可以尝试使用其他流体模拟方法，如混合网格法、流体网格耦合法等，以提高流体模拟的效率和真实性。
+
+2. 流体渲染效果的提升。可以尝试使用其他流体渲染方法，如Ray Marching方法、深度学习方法等，以提高流体渲染的真实性和效率。
+
+3. 移动端流体仿真系统的优化。可以尝试使用其他移动端开发工具，如Unreal Engine、Cocos Creator等，以提高流体仿真系统的性能和稳定性。
+
+4. 流体仿真系统的应用。可以尝试将流体仿真系统应用到其他领域，如游戏开发、虚拟现实、医学仿真等，以提高流体仿真系统的实用性和应用价值。
+
+
+
+
 

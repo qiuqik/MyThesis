@@ -2850,8 +2850,8 @@
       \strng{nameafullhash}{6a64d74641b06083ad8aca57a2cc2b7c}
       \strng{nameafullhashraw}{6a64d74641b06083ad8aca57a2cc2b7c}
       \field{extraname}{2}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the 2007 ACM SIGGRAPH/Eurographics symposium on Computer animation}
@@ -2921,8 +2921,8 @@
       \strng{nameanamehash}{d4dc70a6116b133664857e1969dd1f59}
       \strng{nameafullhash}{70619acfb57dc36c22dc577ef72bf051}
       \strng{nameafullhashraw}{70619acfb57dc36c22dc577ef72bf051}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Computer Graphics Forum}
@@ -2981,8 +2981,8 @@
       \strng{nameanamehash}{3a327432c82f046a717fd9a11d0078e2}
       \strng{nameafullhash}{4ba1d85021bd7d053b6cada685e54566}
       \strng{nameafullhashraw}{4ba1d85021bd7d053b6cada685e54566}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{SBC}
@@ -3044,8 +3044,8 @@
       \strng{nameanamehash}{085550fe1399940c39cde365aa2287a6}
       \strng{nameafullhash}{a61e2a97e237fbd1eb85d2a3806ec1a7}
       \strng{nameafullhashraw}{a61e2a97e237fbd1eb85d2a3806ec1a7}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Proceedings of the ACM on Computer Graphics and Interactive Techniques}
@@ -3107,8 +3107,8 @@
       \strng{nameanamehash}{d32538604e74222e0a3beea3d032ca5b}
       \strng{nameafullhash}{530d2200255059b387b7be1b223a091f}
       \strng{nameafullhashraw}{530d2200255059b387b7be1b223a091f}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Computer Graphics Forum}
@@ -3805,8 +3805,8 @@
       \strng{nameanamehash}{15fded78a6088b2ebb1c1e666e20051e}
       \strng{nameafullhash}{8eb4f692a07634e28deeb937a7a9685b}
       \strng{nameafullhashraw}{8eb4f692a07634e28deeb937a7a9685b}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE transactions on visualization and computer graphics}
